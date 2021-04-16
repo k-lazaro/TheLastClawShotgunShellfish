@@ -82,18 +82,28 @@ public class SpawnerRandom : MonoBehaviour
                         StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 1.45f));
                         break;
                     case 4:
-                        // Two Urchins, One Bubble
+                        // One Urchin, One Bubble
                         fb.setRatioBool(false);
                         timeBetweenSpawn = 8.0f;
                         fb = spawnerPrefab[1].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(.5f, 14);
                         StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 6.45f));
-                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 6.45f));
 
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(0.01f, 0);
+                        fb.setAngleStep(10.134038f);
                         fb.setRatioBool(true);
                         StartCoroutine(spawnRandomPositionSpawner(0, 5.0f));
+                        break;
+                    case 5:
+                        timeBetweenSpawn = 6.0f;
+                        fb.setRatioBool(true);
+                        fb.setFireRateAmount(0.017f, 0);
+                        fb.setAngleStep(1.99999f);
+                        
+                        StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
+                        //fb.setAngleStep(10.134038f);
+                        StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
                         break;
                     default: break;
                 }

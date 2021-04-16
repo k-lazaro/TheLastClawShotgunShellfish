@@ -12,8 +12,9 @@ GameObject:
   - component: {fileID: 1974552642985736324}
   - component: {fileID: 4526158708266684704}
   - component: {fileID: 5573693297248805882}
-  - component: {fileID: -6984501187647546004}
+  - component: {fileID: 9204690871362776797}
   - component: {fileID: -7344037172258970138}
+  - component: {fileID: -6984501187647546004}
   m_Layer: 10
   m_Name: Bubble
   m_TagString: EnemyProj
@@ -117,6 +118,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b7884d2ef233a04cb5efec1feb86a06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeTime: 5
   animator: {fileID: 4526158708266684704}
   audioSource: {fileID: -6984501187647546004}
   clips:
@@ -127,6 +129,34 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 6e5364afc2f9ee44e85c9fe72efdff7b, type: 3}
   - {fileID: 8300000, guid: d5d38c07c7ab3ac41add42c46eade280, type: 3}
   - {fileID: 8300000, guid: 5c2653ade7d58804584ac0a1be9df9a2, type: 3}
+--- !u!114 &9204690871362776797
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163214901065511074}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b17f8ec9161014409d01c542a3ab29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!58 &-7344037172258970138
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7163214901065511074}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.14
 --- !u!82 &-6984501187647546004
 AudioSource:
   m_ObjectHideFlags: 0
@@ -223,19 +253,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!58 &-7344037172258970138
-CircleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7163214901065511074}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.14

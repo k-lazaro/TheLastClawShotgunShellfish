@@ -22,8 +22,9 @@ public class FireBubbles : MonoBehaviour
     protected float bulletActiveTime;       // Sets duration of bullet before destroying
     [SerializeField]
     protected float moveSpeed;
-
-    protected float angleStep;
+    //protected float angleStep;
+    // Common values: 1.618034, 0.318309
+    public float angleStep = 1.618034f * 2 * Mathf.PI;
     protected float currentAngle;
     protected bool clockwise = false;
     public bool ratio;
@@ -70,6 +71,11 @@ public class FireBubbles : MonoBehaviour
         ratio = b;
     }
 
+    public void setAngleStep(float step)
+    {
+        angleStep = step;
+    }
+
     protected void Fire()
     {
         float angleStep = (endAngle - startAngle) / bubblesAmount;
@@ -100,7 +106,7 @@ public class FireBubbles : MonoBehaviour
     protected void FireRatio()
     {
         float bubDirX, bubDirY;
-        angleStep = fractionalTurn * 2 * Mathf.PI;
+        //angleStep = fractionalTurn * 2 * Mathf.PI;
         currentAngle += angleStep;
 
         if (clockwise)

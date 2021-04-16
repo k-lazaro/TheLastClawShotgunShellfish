@@ -414,7 +414,6 @@ MonoBehaviour:
   - {fileID: 5044006674671547940, guid: a869c83eead8a954db3ab576124d79a3, type: 3}
   fb: {fileID: 0}
   timeBetweenSpawn: 1.5
-  timeActive: 1.45
 --- !u!114 &455103885
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -459,7 +458,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: ab7f8cb4af8c2c04799f9e47122f7f46, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.3
+  m_Volume: 0.1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -1349,7 +1348,7 @@ PrefabInstance:
     - target: {fileID: 7859025337458466211, guid: 2e31a04707452a9449af08ec98315ed9,
         type: 3}
       propertyPath: fireRate
-      value: 1.75
+      value: 0.85
       objectReference: {fileID: 0}
     - target: {fileID: 7859025337458466211, guid: 2e31a04707452a9449af08ec98315ed9,
         type: 3}

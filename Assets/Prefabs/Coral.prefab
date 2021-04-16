@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4388010568605178304}
   - component: {fileID: 6251558867946344372}
   - component: {fileID: 6560693051853084613}
+  - component: {fileID: 5546061836115326092}
   - component: {fileID: 6600800883167119715}
   - component: {fileID: 7803077319709404945}
   - component: {fileID: 5286877341121613954}
@@ -99,7 +100,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e217f915d322a9a468e62fb2d3e7e462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeTime: 5
   animator: {fileID: 5286877341121613954}
+--- !u!114 &5546061836115326092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3431385863011651528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b17f8ec9161014409d01c542a3ab29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!61 &6600800883167119715
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -173,4 +187,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e217f915d322a9a468e62fb2d3e7e462, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeTime: 5
   animator: {fileID: 5286877341121613954}
