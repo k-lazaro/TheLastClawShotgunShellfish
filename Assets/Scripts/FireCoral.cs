@@ -6,7 +6,7 @@ public class FireCoral : FireUrchins
 {
     void Awake()
     {
-        spriteWidthHalf = CoralPool.coralPoolInstance.GetBubble().GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        //spriteWidthHalf = CoralPool.coralPoolInstance.GetBubble().GetComponent<SpriteRenderer>().bounds.size.x / 2;
     }
 
     protected void Fire()
@@ -18,6 +18,7 @@ public class FireCoral : FireUrchins
             Vector2 bubMoveVector = new Vector3(0, -1f);
 
             GameObject bub = CoralPool.coralPoolInstance.GetBubble();
+            bub.GetComponent<Coral>().setAttach(false);
             bub.transform.position = startingPoint;
             bub.GetComponent<EnemyProjectile>().SetActiveTime(7f);
             bub.SetActive(true);

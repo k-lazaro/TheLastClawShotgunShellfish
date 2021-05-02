@@ -48,7 +48,7 @@ public class EnemyProjectile : MonoBehaviour
         //Debug.Log("In EnemyProjectile");
     }
 
-    protected void Destroy()
+    protected virtual void Destroy()
     {
         gameObject.SetActive(false);
     }

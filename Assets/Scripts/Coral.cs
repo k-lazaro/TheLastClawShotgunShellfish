@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Coral : EnemyProjectile
 {
+    private bool attach;
     private int health;
     void Awake()
     {
@@ -14,14 +15,27 @@ public class Coral : EnemyProjectile
     // Start is called before the first frame update
     void Start()
     {
+        attach = false;
         moveSpeed = 7f;
     }
 
     // Updates X/Y pos instead of Hero.cs
-    //private void Update()
-    //{
-    //    transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-    //}
+    void Update()
+    {
+        if (!attach)
+            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
+    }
+
+    public void setAttach(bool b)
+    {
+        attach = b;
+    }
+
+    protected override void Destroy()
+    {
+        gameObject.transform.SetParent(null);
+        gameObject.SetActive(false);
+    }
 
     protected override IEnumerator OnCollisionEnter2D(Collision2D collision)
     {
@@ -53,6 +67,11 @@ public class Coral : EnemyProjectile
                     health--;
                     Destroy(otherGameObject);
                 }
+            }
+            if (otherGameObject.tag == "Hero")
+            {
+                attach = true;
+                transform.SetParent(otherGameObject.transform);
             }
         //}
     }

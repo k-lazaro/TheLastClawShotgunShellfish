@@ -50,7 +50,7 @@ public class SpawnerRandom : MonoBehaviour
                 {
                     case 0:
                         fb.setRatioBool(false);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
+                        StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
                         //timeActive = 5f;
                         //timeBetweenSpawn = 5f;
                         break;
