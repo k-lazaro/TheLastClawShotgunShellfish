@@ -9,7 +9,7 @@ public class Coral : EnemyProjectile
     void Awake()
     {
         health = 2;
-        Physics2D.IgnoreLayerCollision(10, 11, true);
+        //Physics2D.IgnoreLayerCollision(10, 11, true);
     }
 
     // Start is called before the first frame update
@@ -44,35 +44,36 @@ public class Coral : EnemyProjectile
 
         //if (collision.collider.GetType() == typeof(BoxCollider2D))
         //{
-            if (otherGameObject.tag == "ProjectileHero")
+        if (otherGameObject.tag == "ProjectileHero")
+        {
+            if (health == 2)
             {
-                if (health == 2)
-                {
-                    health--;
-                    Destroy(otherGameObject);
-                    animator.SetTrigger("Damaged");
-                    yield return null;
-                }
-                else if (health == 0)
-                {
-                    Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Hero.Instance.GetComponent<Collider2D>(), true);
-                    Destroy(otherGameObject);
-                    animator.SetTrigger("Dead");
-                    yield return new WaitForSeconds(0.667f);
-                    Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Hero.Instance.GetComponent<Collider2D>(), false);
-                    Destroy();
-                }
-                else
-                {
-                    health--;
-                    Destroy(otherGameObject);
-                }
+                health--;
+                Destroy(otherGameObject);           // Causes MissingReferenceException: The Object of type GameObject has been destroyed but you are still trying to access it
+                animator.SetTrigger("Damaged");
+                yield return null;
             }
-            if (otherGameObject.tag == "Hero")
+            else if (health == 0)
             {
-                attach = true;
-                transform.SetParent(otherGameObject.transform);
+                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Hero.Instance.GetComponent<Collider2D>(), true);
+                Destroy(otherGameObject);
+                animator.SetTrigger("Dead");
+                yield return new WaitForSeconds(0.667f);
+                Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Hero.Instance.GetComponent<Collider2D>(), false);
+                Destroy();
             }
+            else
+            {
+                health--;
+                Destroy(otherGameObject);
+            }
+        }
+        if (otherGameObject.tag == "Hero")
+        {
+            attach = true;
+            transform.SetParent(otherGameObject.transform);
+        }
+        yield return null;
         //}
     }
 }

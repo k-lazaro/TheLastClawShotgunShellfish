@@ -154,6 +154,11 @@ public class Hero : MonoBehaviour
 
     }
 
+    public void decrementLives()
+    {
+        _lives--;
+    }
+
     void Fire()
     {
         audioSource.PlayOneShot(clips[0], 0.5f);
@@ -209,13 +214,15 @@ public class Hero : MonoBehaviour
     }
 
 
-    IEnumerator getInvulnerable()
+    public IEnumerator getInvulnerable()
     {
-        Physics2D.IgnoreLayerCollision(8, 10, true);
+        Physics2D.IgnoreLayerCollision(8, 10, true);    // Ignore collision between hero and enemy projectile
+        Physics2D.IgnoreLayerCollision(10, 11, true);
         //mySprite.color = Color.red;
         yield return new WaitForSeconds(invulnerabiltyDuration);
         //mySprite.color = Color.white;
         Physics2D.IgnoreLayerCollision(8, 10, false);
+        Physics2D.IgnoreLayerCollision(10, 11, false);
 
         //int temp = 0;
         //float flashDuration = invulnerabiltyDuration /(2 * numberOfFlashes);
