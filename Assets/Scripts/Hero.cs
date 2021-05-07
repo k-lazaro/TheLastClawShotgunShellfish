@@ -41,11 +41,16 @@ public class Hero : MonoBehaviour
     //Freeze y
     public bool freezeY;
 
+    public bool twoGuns;
+    public float dualGunTime;
+    public float dualGunLimit = 15;
+
+
     [Header("Set Dynamically")]
 
     [SerializeField]
-    private float fireRate = 1f;
-    private float _lives = 3;
+    public float fireRate = 1f;
+    public float _lives = 3;
     private float elapsedTime = 0;
     //private float _shieldLevel = 1;
     //private GameObject lastTriggerGameObject = null;
@@ -63,9 +68,26 @@ public class Hero : MonoBehaviour
 
             switch (value)
             {
-                case 2: Destroy(lives[2]); break;
-                case 1: Destroy(lives[1]); break;
-                case 0: Destroy(lives[0]); break;
+                case 3:
+                    lives[2].SetActive(true);
+                    lives[1].SetActive(true);
+                    lives[0].SetActive(true);
+                    break;
+                case 2:
+                    lives[2].SetActive(false);
+                    lives[1].SetActive(true);
+                    lives[0].SetActive(true);
+                    break;
+                case 1:
+                    lives[2].SetActive(false);
+                    lives[1].SetActive(false);
+                    lives[0].SetActive(true);
+                    break;
+                case 0:
+                    lives[2].SetActive(false);
+                    lives[1].SetActive(false);
+                    lives[0].SetActive(false);
+                    break;
                 default:
                     break;
             }
@@ -91,6 +113,8 @@ public class Hero : MonoBehaviour
         if (Instance == null)
         {
             _lives = 3;
+            dualGunTime = 0;
+            twoGuns = false;
             Physics2D.IgnoreLayerCollision(8, 10, false);
             Instance = this; // Set the Singleton
         }
@@ -141,31 +165,65 @@ public class Hero : MonoBehaviour
                 nextFire = Time.time + fireRate;
                 Fire();
             }
+
+
+            if (dualGunTime > dualGunLimit)
+            {
+                dualGunTime = 0;
+                twoGuns = !twoGuns;
+            }
+
+            if (twoGuns)
+            {
+                dualGunTime += Time.deltaTime;
+            }
+
         }
-        
+
 
         // Rotate the ship to make it feel more dynamic
         // Feel free to remove this if you don't like the affect
         //transform.rotation = Quaternion.Euler(yAxis * pitchMult, xAxis * rollMult, 0);
 
         // Automatic shooting
-        
-        
 
-    }
 
-    public void decrementLives()
-    {
-        _lives--;
+
     }
 
     void Fire()
     {
+
+        Vector3 vec3 = new Vector3(.5f, 0,0);
+        Vector3 vec4 = new Vector3(-.5f, 0,0);
+
+
         audioSource.PlayOneShot(clips[0], 0.5f);
         GameObject projGO = Instantiate<GameObject>(projectilePrefab);
         projGO.transform.position = (Vector2)transform.position + Vector2.up;
         Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
         rigidB.velocity = Vector2.up * projectileSpeed;
+
+        Vector3 spread = new Vector3(0, 0, 5);
+        GameObject bullet = Instantiate(projectilePrefab, transform.position + vec4, Quaternion.Euler(transform.rotation.eulerAngles + spread));
+        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+        rb.AddForce(bullet.transform.up *projectileSpeed, ForceMode2D.Impulse);
+
+        Vector3 spread2 = new Vector3(0, 0, -5);
+        GameObject bullet2 = Instantiate(projectilePrefab, transform.position + vec3, Quaternion.Euler(transform.rotation.eulerAngles + spread2));
+        Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
+        rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+
+
+
+        if (twoGuns)
+        {
+            Vector2 vec2 = new Vector2(1,0);
+            GameObject projGO2 = Instantiate<GameObject>(projectilePrefab);
+            projGO2.transform.position = (Vector2)transform.position + vec2 + Vector2.up;
+            Rigidbody2D rigidB2 = projGO2.GetComponent<Rigidbody2D>();
+            rigidB2.velocity = Vector2.up * projectileSpeed;
+        }
 
     }
 
@@ -214,15 +272,13 @@ public class Hero : MonoBehaviour
     }
 
 
-    public IEnumerator getInvulnerable()
+    IEnumerator getInvulnerable()
     {
-        Physics2D.IgnoreLayerCollision(8, 10, true);    // Ignore collision between hero and enemy projectile
-        Physics2D.IgnoreLayerCollision(10, 11, true);
+        Physics2D.IgnoreLayerCollision(8, 10, true);
         //mySprite.color = Color.red;
         yield return new WaitForSeconds(invulnerabiltyDuration);
         //mySprite.color = Color.white;
         Physics2D.IgnoreLayerCollision(8, 10, false);
-        Physics2D.IgnoreLayerCollision(10, 11, false);
 
         //int temp = 0;
         //float flashDuration = invulnerabiltyDuration /(2 * numberOfFlashes);
