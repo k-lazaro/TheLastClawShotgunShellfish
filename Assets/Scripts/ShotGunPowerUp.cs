@@ -1,8 +1,9 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
-public class FirePowerUp : HealthPowerUp
+public class ShotGunPowerUp : HealthPowerUp
 {
-    public float increase = 0.2f;
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +20,7 @@ public class FirePowerUp : HealthPowerUp
 
             if (heroScript)
             {
-                heroScript.fireRate += increase;
+                heroScript.shotGun = true;
                 Destroy(gameObject);
             }
         }

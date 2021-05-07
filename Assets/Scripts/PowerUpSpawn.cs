@@ -40,6 +40,7 @@ public class PowerUpSpawn : MonoBehaviour
                 switch (Timer.Instance.difficulty)       // Changes difficulty of game 
                 {
                     case 0:
+                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         //timeActive = 5f;
                         //timeBetweenSpawn = 5f;
@@ -48,39 +49,43 @@ public class PowerUpSpawn : MonoBehaviour
                     case 1:
                         // Two bubble spawners
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+
+                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(3, 10.0f));
                         break;
                     case 2:
                         // One bubble, one urchin
-                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+                        hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(2, 10.0f));
 
                         hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 3:
                         // Two Bubbles, One Urchin
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+                        StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
+                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
 
-                        hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 10.0f));
+                        hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 10.0f));
                         break;
                     case 4:
                         // One Urchin, One Bubble
                         timeBetweenSpawn = 8.0f;
-                        hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 10.0f));
+                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnStaticPositionSpawner(3, Vector2.zero, 10.0f));
 
-                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+                        hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 5:
                         timeBetweenSpawn = 6.0f;
-
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+                        hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         //fb.setAngleStep(10.134038f);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
+                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(3, 10.0f));
                         break;
                     default: break;
                 }

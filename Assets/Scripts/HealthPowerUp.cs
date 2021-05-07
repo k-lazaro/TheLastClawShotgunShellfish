@@ -3,12 +3,23 @@
 public class HealthPowerUp : MonoBehaviour
 {
 
-    public GameObject[] lives;
+    public GameObject livesManager;
+    public GameObject[] lives = new GameObject[3];
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        livesManager = GameObject.Find("LivesManager");
+        lives[0] = livesManager.transform.GetChild(0).gameObject;
+        lives[1] = livesManager.transform.GetChild(1).gameObject;
+        lives[2] = livesManager.transform.GetChild(2).gameObject;
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "Hero")
         {
+
             GameObject hero = collision.gameObject;
             Hero heroScript = hero.GetComponent<Hero>();
 

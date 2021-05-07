@@ -45,6 +45,10 @@ public class Hero : MonoBehaviour
     public float dualGunTime;
     public float dualGunLimit = 15;
 
+    public bool shotGun;
+    public float shotGunTime;
+    public float shotGunLimit = 15;
+
 
     [Header("Set Dynamically")]
 
@@ -115,6 +119,8 @@ public class Hero : MonoBehaviour
             _lives = 3;
             dualGunTime = 0;
             twoGuns = false;
+            shotGunTime = 0;
+            shotGun = false;
             Physics2D.IgnoreLayerCollision(8, 10, false);
             Instance = this; // Set the Singleton
         }
@@ -178,6 +184,17 @@ public class Hero : MonoBehaviour
                 dualGunTime += Time.deltaTime;
             }
 
+            if (shotGunTime > shotGunLimit)
+            {
+               shotGunTime = 0;
+                shotGun = !shotGun;
+            }
+
+            if (shotGun)
+            {
+                shotGunTime += Time.deltaTime;
+            }
+
         }
 
 
@@ -194,27 +211,28 @@ public class Hero : MonoBehaviour
     void Fire()
     {
 
-        Vector3 vec3 = new Vector3(.5f, 0,0);
-        Vector3 vec4 = new Vector3(-.5f, 0,0);
-
-
         audioSource.PlayOneShot(clips[0], 0.5f);
         GameObject projGO = Instantiate<GameObject>(projectilePrefab);
         projGO.transform.position = (Vector2)transform.position + Vector2.up;
         Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
         rigidB.velocity = Vector2.up * projectileSpeed;
 
-        Vector3 spread = new Vector3(0, 0, 5);
-        GameObject bullet = Instantiate(projectilePrefab, transform.position + vec4, Quaternion.Euler(transform.rotation.eulerAngles + spread));
-        Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
-        rb.AddForce(bullet.transform.up *projectileSpeed, ForceMode2D.Impulse);
 
-        Vector3 spread2 = new Vector3(0, 0, -5);
-        GameObject bullet2 = Instantiate(projectilePrefab, transform.position + vec3, Quaternion.Euler(transform.rotation.eulerAngles + spread2));
-        Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
-        rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        if (shotGun)
+        {
+            Vector3 vec3 = new Vector3(.5f, 0, 0);
+            Vector3 vec4 = new Vector3(-.5f, 0, 0);
 
+            Vector3 spread = new Vector3(0, 0, 5);
+            GameObject bullet = Instantiate(projectilePrefab, transform.position + vec4, Quaternion.Euler(transform.rotation.eulerAngles + spread));
+            Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
+            rb.AddForce(bullet.transform.up * projectileSpeed, ForceMode2D.Impulse);
 
+            Vector3 spread2 = new Vector3(0, 0, -5);
+            GameObject bullet2 = Instantiate(projectilePrefab, transform.position + vec3, Quaternion.Euler(transform.rotation.eulerAngles + spread2));
+            Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
+            rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
+        }    
 
         if (twoGuns)
         {
