@@ -362,6 +362,10 @@ MonoBehaviour:
   started: 0
   pressSpace: {fileID: 1132970550}
   endText: {fileID: 333083181}
+  prefabEnemies:
+  - {fileID: 9005961175074659199, guid: deebefb295bcfbb4ab0905d6cb9b7c6a, type: 3}
+  enemySpawnPerSecond: 0.5
+  enemyDefaultPadding: 1.5
 --- !u!114 &455103882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1021,7 +1025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 0, y: 48.600006}
+  m_AnchoredPosition: {x: 0, y: 48.600098}
   m_SizeDelta: {x: 324, y: 574}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1132970550
@@ -1199,7 +1203,7 @@ RectTransform:
   m_GameObject: {fileID: 1329795347}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.95166665, y: 0.95166665, z: 0.95166665}
+  m_LocalScale: {x: 0.78833336, y: 0.78833336, z: 0.78833336}
   m_Children:
   - {fileID: 1510499991}
   - {fileID: 1132970549}
@@ -1209,7 +1213,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 160.5, y: 285.5}
+  m_AnchoredPosition: {x: 133, y: 236.5}
   m_SizeDelta: {x: 0, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1329795352
