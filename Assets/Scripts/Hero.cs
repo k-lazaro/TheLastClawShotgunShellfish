@@ -39,7 +39,7 @@ public class Hero : MonoBehaviour
     private float nextFire = 0f;
 
     //Freeze y
-    public bool freezeY;
+    //public bool freezeY;
 
     public bool twoGuns;
     public float dualGunTime;
@@ -98,7 +98,7 @@ public class Hero : MonoBehaviour
 
             // If the shield is going to be set to less than zero
             if (value < 0)
-            {                                                 
+            {
                 Destroy(this.gameObject);
 
                 Main.Instance.endText.text = "You survived for\n\n" + Mathf.Round(Timer.Instance.timeStart) + " seconds!\n\n\n" +
@@ -139,8 +139,8 @@ public class Hero : MonoBehaviour
 
         // Get player input
 
-        //float xAxis = Input.GetAxis("Horizontal"); 
-        //float yAxis = Input.GetAxis("Vertical"); 
+        //float xAxis = Input.GetAxis("Horizontal");
+        //float yAxis = Input.GetAxis("Vertical");
 
         // Use that input to change transform.position
 
@@ -149,22 +149,21 @@ public class Hero : MonoBehaviour
         //pos.y += yAxis * speed * Time.deltaTime;
         if (Main.Instance.started)
         {
-            if (!freezeY)
-            {
-                Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.position = targetPos;
-                determineDirection();
-                lastPosition = transform.position;
-            }
-            else
-            {
-                // NOTE TO SELF: Coral drags down and prevents movement until mouse movement down is detected?
-                Vector2 targetPos = lastPosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
-                transform.position += new Vector3(targetPos.x, 0);
-                determineDirection();
-                lastPosition = transform.position;
-            }
-            
+            // Player movement
+            Vector2 targetPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            transform.position = targetPos;
+            determineDirection();
+            lastPosition = transform.position;
+
+            // else
+            // {
+            //     // NOTE TO SELF: Coral drags down and prevents movement until mouse movement down is detected?
+            //     Vector2 targetPos = lastPosition - Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            //     transform.position += new Vector3(targetPos.x, 0);
+            //     determineDirection();
+            //     lastPosition = transform.position;
+            // }
+
 
             if (Time.time > nextFire)
             {
@@ -232,7 +231,7 @@ public class Hero : MonoBehaviour
             GameObject bullet2 = Instantiate(projectilePrefab, transform.position + vec3, Quaternion.Euler(transform.rotation.eulerAngles + spread2));
             Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
             rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
-        }    
+        }
 
         if (twoGuns)
         {
@@ -257,7 +256,7 @@ public class Hero : MonoBehaviour
     void determineDirection()
     {
         Vector2 currentDirection = (transform.position - lastPosition).normalized;
-        
+
         if (currentDirection.x == -1)
         {
             elapsedTime = 0;
@@ -313,7 +312,7 @@ public class Hero : MonoBehaviour
         //    temp++;
         //}
     }
-    
+
     /*
      * This function gets called everytime something hits this object
      * In this case, the Hero collider is a trigger, meaning objects can pass through.
@@ -322,7 +321,7 @@ public class Hero : MonoBehaviour
      */
     //private void OnTriggerEnter2D(Collider2D collision)
     //{
-    //    GameObject gameObject = collision.gameObject;                              
+    //    GameObject gameObject = collision.gameObject;
 
     //    // Coral
     //    if (gameObject.tag == "Coral")
@@ -339,7 +338,7 @@ public class Hero : MonoBehaviour
     //        //{
     //        //    shield.SetActive(false);
     //        //}
-    //        //Destroy(gameObject);          // … and Destroy the enemy                 
+    //        //Destroy(gameObject);          // … and Destroy the enemy
     //    }
     //    // Bubble or Urchin
     //    else if (gameObject.tag == "EnemyProj")
@@ -354,7 +353,7 @@ public class Hero : MonoBehaviour
     //    }
     //    else
     //    {
-    //        print("Triggered by non-Enemy: " + gameObject.name);                      
+    //        print("Triggered by non-Enemy: " + gameObject.name);
     //    }
     //}
 
@@ -379,10 +378,10 @@ public class Hero : MonoBehaviour
             //{
             //    shield.SetActive(false);
             //}
-            //Destroy(gameObject);          // … and Destroy the enemy                 
+            //Destroy(gameObject);          // … and Destroy the enemy
         }
         // Bubble or Urchin
-        else if (gameObject.tag == "EnemyProj")
+        else if (gameObject.tag == "EnemyProj" || (gameObject.tag == "Enemy" && gameObject.GetComponent<Enemy>().alive))
         {
             Lives--;
             animator.SetTrigger("Hurt");
@@ -400,7 +399,7 @@ public class Hero : MonoBehaviour
 
     private void OnCollisionStay2D(Collision2D collision)
     {
-        
+
     }
 
 }
