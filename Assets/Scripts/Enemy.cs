@@ -62,7 +62,7 @@ public class Enemy : MonoBehaviour
             Destroy(otherGameObject); // Destroy the Projectile
             if (health == 0)
             {
-                alive == false;
+                alive = false;
                 animator.SetTrigger("Dead");
                 yield return new WaitForSeconds(0.917f);
                 Destroy(gameObject);      // Destroy this Enemy GameObject
