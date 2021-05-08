@@ -7,7 +7,7 @@ using UnityEngine;
 /// Defines behavior for different difficulties,
 /// places spawners in random locations according to
 /// parameters.
-/// Set spawner prefabs array in inspector, 
+/// Set spawner prefabs array in inspector,
 /// time (in sec.) between each spawn and when it is active
 /// </summary>
 
@@ -15,7 +15,7 @@ public class SpawnerRandom : MonoBehaviour
 {
     public GameObject[] spawnerPrefab;            // Ideally array of spawners
     public FireBubbles fb;
-    public float timeBetweenSpawn;                
+    public float timeBetweenSpawn;
     //public int index;
     private float elapsedTime;                    // Keeps track of elapsed time
 
@@ -23,7 +23,7 @@ public class SpawnerRandom : MonoBehaviour
     {
         // Set for difficulty 0
         //StartCoroutine("spawnSpawner");
-        
+
         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
         fb.setFireRateAmount(2, 10);
         //fb.setFireRateAmount(.2f, 1);
@@ -46,12 +46,12 @@ public class SpawnerRandom : MonoBehaviour
             if (elapsedTime > timeBetweenSpawn)
             {
                 elapsedTime = 0;
-                switch (Timer.Instance.difficulty)       // Changes difficulty of game 
+                switch (Timer.Instance.difficulty)       // Changes difficulty of game
                 {
                     case 0:
-                        fb.setRatioBool(false);
-                        StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
+                        // fb.setRatioBool(false);
+                        // StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
+                        // StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         //timeActive = 5f;
                         //timeBetweenSpawn = 5f;
                         break;
@@ -101,7 +101,7 @@ public class SpawnerRandom : MonoBehaviour
                         fb.setRatioBool(true);
                         fb.setFireRateAmount(0.017f, 0);
                         fb.setAngleStep(1.99999f);
-                        
+
                         StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
                         //fb.setAngleStep(10.134038f);
                         StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
@@ -113,7 +113,7 @@ public class SpawnerRandom : MonoBehaviour
             }
             elapsedTime += Time.deltaTime;
         }
-        
+
     }
 
     public IEnumerator spawnRandomPositionSpawner(int index, float timeActive)

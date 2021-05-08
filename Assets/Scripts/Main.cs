@@ -13,9 +13,9 @@ public class Main : MonoBehaviour
 
     //[Header("Set in Inspector")]
 
-    //public GameObject[] prefabEnemies;       // Array of Enemy prefabs. You can add different types here
-    //public float enemySpawnPerSecond = 0.5f; // # Enemies/second aka spawn rate
-    //public float enemyDefaultPadding = 1.5f; // Padding for position
+    public GameObject[] prefabEnemies;       // Array of Enemy prefabs. You can add different types here
+    public float enemySpawnPerSecond = 0.5f; // # Enemies/second aka spawn rate
+    public float enemyDefaultPadding = 1.5f; // Padding for position
 
     private BoundsCheck bndCheck;
 
@@ -25,7 +25,7 @@ public class Main : MonoBehaviour
         started = false;
 
         Cursor.visible = false;
-        if (Instance == null) 
+        if (Instance == null)
             Instance = this; // Set the Singleton
         else
             Debug.LogError("Main.Awake() - Attempted to assign second Main instance");
@@ -34,7 +34,7 @@ public class Main : MonoBehaviour
         bndCheck = GetComponent<BoundsCheck>();
 
         // Invoke SpawnEnemy() once (in 2 seconds, based on default values)
-        //Invoke("SpawnEnemy", 1f / enemySpawnPerSecond); 
+        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond); 
 
     }
 
@@ -63,35 +63,35 @@ public class Main : MonoBehaviour
     }
 
 
-    //public void SpawnEnemy()
-    //{
-    //    // Pick a random Enemy prefab to instantiate
+    public void SpawnEnemy()
+    {
+       // Pick a random Enemy prefab to instantiate
 
-    //    int index = Random.Range(0, prefabEnemies.Length);
-    //    GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+       int index = Random.Range(0, prefabEnemies.Length);
+       GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
 
-    //    // Position the Enemy above the screen with a random x position
-    //    float enemyPadding = enemyDefaultPadding;
+       // Position the Enemy above the screen with a random x position
+       float enemyPadding = enemyDefaultPadding;
 
-    //    if (enemy.GetComponent<BoundsCheck>() != null)
-    //    { 
-    //        enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
-    //    }
+       if (enemy.GetComponent<BoundsCheck>() != null)
+       {
+           enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
+       }
 
-    //    // Set the initial position for the spawned Enemy 
-    //    Vector3 pos = Vector3.zero;
+       // Set the initial position for the spawned Enemy
+       Vector3 pos = Vector3.zero;
 
-    //    float xMin = -bndCheck.camWidth + enemyPadding;
-    //    float xMax = bndCheck.camWidth - enemyPadding;
+       float xMin = -bndCheck.camWidth + enemyPadding;
+       float xMax = bndCheck.camWidth - enemyPadding;
 
-    //    pos.x = Random.Range(xMin, xMax);
-    //    pos.y = bndCheck.camHeight + enemyPadding;
+       pos.x = Random.Range(xMin, xMax);
+       pos.y = bndCheck.camHeight + enemyPadding;
 
-    //    enemy.transform.position = pos;
+       enemy.transform.position = pos;
 
-    //    // Call SpawnEnemy() again
-    //    Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+       // Call SpawnEnemy() again
+       Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
 
-    //}
+    }
 
 }
