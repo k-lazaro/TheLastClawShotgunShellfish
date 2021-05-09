@@ -34,7 +34,7 @@ public class Main : MonoBehaviour
         bndCheck = GetComponent<BoundsCheck>();
 
         // Invoke SpawnEnemy() once (in 2 seconds, based on default values)
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond); 
+        //Invoke("SpawnEnemy", 1f / enemySpawnPerSecond); 
 
     }
 

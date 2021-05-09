@@ -9,11 +9,11 @@ public class Enemy : MonoBehaviour
 
     public float speed = 10f;      // The speed in m/s
     //public float fireRate = 0.3f;  // Seconds/shot (Unused)
-    public float health = 2;
+    public float health;
     public bool alive;
     //public int score = 100;      // Points earned for destroying this
 
-    private BoundsCheck bndCheck;
+    protected BoundsCheck bndCheck;
     public Animator animator;
 
     // This is a Property: A method that acts like a field
@@ -34,6 +34,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
+        health = 2;
         alive = true;
         bndCheck = GetComponent<BoundsCheck>();
     }
