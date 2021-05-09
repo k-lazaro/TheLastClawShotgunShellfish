@@ -187,7 +187,7 @@ public class Hero : MonoBehaviour
             if (shotGunTime > shotGunLimit)
             {
                shotGunTime = 0;
-                shotGun = !shotGun;
+               shotGun = !shotGun;
             }
 
             if (shotGun)
@@ -257,33 +257,72 @@ public class Hero : MonoBehaviour
     void determineDirection()
     {
         Vector2 currentDirection = (transform.position - lastPosition).normalized;
-        
-        if (currentDirection.x == -1)
+        if (shotGun)
         {
-            elapsedTime = 0;
-            animator.SetBool("WalkLeft", true);
+            animator.SetBool("WalkLeft", false);
             animator.SetBool("WalkRight", false);
             animator.SetBool("Idle", false);
-            //yield return new WaitForSeconds(1f);
-        }
-        else if (currentDirection.x == 1)
-        {
-            elapsedTime = 0;
-            animator.SetBool("WalkLeft", false);
-            animator.SetBool("WalkRight", true);
-            animator.SetBool("Idle", false);
-        }
-        else
-        {
-            if (elapsedTime > 1)
+            if (currentDirection.x == -1)
             {
-                animator.SetBool("WalkLeft", false);
-                animator.SetBool("WalkRight", false);
-                animator.SetBool("Idle", true);
+                elapsedTime = 0;
+                animator.SetBool("ShotgunWalkLeft", true);
+                animator.SetBool("ShotgunWalkRight", false);
+                animator.SetBool("ShotgunIdle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("ShotgunWalkLeft", false);
+                animator.SetBool("ShotgunWalkRight", true);
+                animator.SetBool("ShotgunIdle", false);
             }
             else
             {
-                elapsedTime += Time.deltaTime;
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("ShotgunWalkLeft", false);
+                    animator.SetBool("ShotgunWalkRight", false);
+                    animator.SetBool("ShotgunIdle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
+            }
+        }
+        else
+        {
+            animator.SetBool("ShotgunWalkLeft", false);
+            animator.SetBool("ShotgunWalkRight", false);
+            animator.SetBool("ShotgunIdle", false);
+            if (currentDirection.x == -1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("WalkLeft", true);
+                animator.SetBool("WalkRight", false);
+                animator.SetBool("Idle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("WalkLeft", false);
+                animator.SetBool("WalkRight", true);
+                animator.SetBool("Idle", false);
+            }
+            else
+            {
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("WalkLeft", false);
+                    animator.SetBool("WalkRight", false);
+                    animator.SetBool("Idle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
             }
         }
         //Debug.Log(currentDirection.x);
@@ -384,13 +423,26 @@ public class Hero : MonoBehaviour
         // Bubble or Urchin
         else if (gameObject.tag == "EnemyProj")
         {
-            Lives--;
-            animator.SetTrigger("Hurt");
-            animator.SetBool("WalkLeft", false);
-            animator.SetBool("WalkRight", false);
-            animator.SetBool("Idle", false);
-            StartCoroutine("getInvulnerable");
-            //gameObject.SetActive(false);
+            if (shotGun)
+            {
+                Lives--;
+                animator.SetTrigger("ShotgunHurt");
+                animator.SetBool("ShotgunWalkLeft", false);
+                animator.SetBool("ShotgunWalkRight", false);
+                animator.SetBool("ShotgunIdle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
+            else
+            {
+                Lives--;
+                animator.SetTrigger("Hurt");
+                animator.SetBool("WalkLeft", false);
+                animator.SetBool("WalkRight", false);
+                animator.SetBool("Idle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
         }
         else
         {

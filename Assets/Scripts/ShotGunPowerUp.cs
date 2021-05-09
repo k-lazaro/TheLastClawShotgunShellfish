@@ -20,7 +20,9 @@ public class ShotGunPowerUp : HealthPowerUp
 
             if (heroScript)
             {
+                heroScript.twoGuns = false;
                 heroScript.shotGun = true;
+                heroScript.shotGunTime = 0;
                 Destroy(gameObject);
             }
         }
