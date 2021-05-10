@@ -212,10 +212,6 @@ public class Hero : MonoBehaviour
     {
 
         audioSource.PlayOneShot(clips[0], 0.5f);
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = (Vector2)transform.position + Vector2.up;
-        Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
-        rigidB.velocity = Vector2.up * projectileSpeed;
 
 
         if (shotGun)
@@ -233,14 +229,26 @@ public class Hero : MonoBehaviour
             Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
             rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
         }    
-
-        if (twoGuns)
+        else if (twoGuns)
         {
-            Vector2 vec2 = new Vector2(1,0);
+            Vector2 vec2 = new Vector2(.5f,0);
+
             GameObject projGO2 = Instantiate<GameObject>(projectilePrefab);
             projGO2.transform.position = (Vector2)transform.position + vec2 + Vector2.up;
             Rigidbody2D rigidB2 = projGO2.GetComponent<Rigidbody2D>();
             rigidB2.velocity = Vector2.up * projectileSpeed;
+
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position - vec2 + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
+        }
+        else
+        {
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
         }
 
     }
@@ -262,6 +270,9 @@ public class Hero : MonoBehaviour
             animator.SetBool("WalkLeft", false);
             animator.SetBool("WalkRight", false);
             animator.SetBool("Idle", false);
+            animator.SetBool("DualgunWalkLeft", false);
+            animator.SetBool("DualgunWalkRight", false);
+            animator.SetBool("DualgunIdle", false);
             if (currentDirection.x == -1)
             {
                 elapsedTime = 0;
@@ -291,11 +302,51 @@ public class Hero : MonoBehaviour
                 }
             }
         }
+        else if (twoGuns)
+        {
+            animator.SetBool("WalkLeft", false);
+            animator.SetBool("WalkRight", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("ShotgunWalkLeft", false);
+            animator.SetBool("ShotgunWalkRight", false);
+            animator.SetBool("ShotgunIdle", false);
+            if (currentDirection.x == -1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("DualgunWalkLeft", true);
+                animator.SetBool("DualgunWalkRight", false);
+                animator.SetBool("DualgunIdle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("DualgunWalkLeft", false);
+                animator.SetBool("DualgunWalkRight", true);
+                animator.SetBool("DualgunIdle", false);
+            }
+            else
+            {
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("DualgunWalkLeft", false);
+                    animator.SetBool("DualgunWalkRight", false);
+                    animator.SetBool("DualgunIdle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
+            }
+        }    
         else
         {
             animator.SetBool("ShotgunWalkLeft", false);
             animator.SetBool("ShotgunWalkRight", false);
             animator.SetBool("ShotgunIdle", false);
+            animator.SetBool("DualgunWalkLeft", false);
+            animator.SetBool("DualgunWalkRight", false);
+            animator.SetBool("DualgunIdle", false);
             if (currentDirection.x == -1)
             {
                 elapsedTime = 0;
@@ -430,6 +481,16 @@ public class Hero : MonoBehaviour
                 animator.SetBool("ShotgunWalkLeft", false);
                 animator.SetBool("ShotgunWalkRight", false);
                 animator.SetBool("ShotgunIdle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
+            else if (twoGuns)
+            {
+                Lives--;
+                animator.SetTrigger("DualgunHurt");
+                animator.SetBool("DualgunWalkLeft", false);
+                animator.SetBool("DualgunWalkRight", false);
+                animator.SetBool("DualgunIdle", false);
                 StartCoroutine("getInvulnerable");
                 //gameObject.SetActive(false);
             }
