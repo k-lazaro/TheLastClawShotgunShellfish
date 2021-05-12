@@ -219,6 +219,11 @@ public class Hero : MonoBehaviour
             Vector3 vec3 = new Vector3(.5f, 0, 0);
             Vector3 vec4 = new Vector3(-.5f, 0, 0);
 
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
+
             Vector3 spread = new Vector3(0, 0, 5);
             GameObject bullet = Instantiate(projectilePrefab, transform.position + vec4, Quaternion.Euler(transform.rotation.eulerAngles + spread));
             Rigidbody2D rb = bullet.GetComponent<Rigidbody2D>();
