@@ -44,6 +44,9 @@ public class Hero : MonoBehaviour
     public bool twoGuns;
     public float dualGunTime;
     public float dualGunLimit = 15;
+    public GameObject PowerupManager;
+    public GameObject[] powerup = new GameObject[2];
+
 
     public bool shotGun;
     public float shotGunTime;
@@ -121,6 +124,9 @@ public class Hero : MonoBehaviour
             twoGuns = false;
             shotGunTime = 0;
             shotGun = false;
+            PowerupManager = GameObject.Find("PowerupManager");
+            powerup[0] = PowerupManager.transform.GetChild(0).gameObject;
+            powerup[1] = PowerupManager.transform.GetChild(1).gameObject;
             Physics2D.IgnoreLayerCollision(8, 10, false);
             Instance = this; // Set the Singleton
         }
@@ -176,6 +182,7 @@ public class Hero : MonoBehaviour
             if (dualGunTime > dualGunLimit)
             {
                 dualGunTime = 0;
+                powerup[1].SetActive(false);
                 twoGuns = !twoGuns;
             }
 
@@ -187,6 +194,7 @@ public class Hero : MonoBehaviour
             if (shotGunTime > shotGunLimit)
             {
                shotGunTime = 0;
+               powerup[0].SetActive(false);
                shotGun = !shotGun;
             }
 
