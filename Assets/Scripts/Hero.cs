@@ -44,6 +44,9 @@ public class Hero : MonoBehaviour
     public bool twoGuns;
     public float dualGunTime;
     public float dualGunLimit = 15;
+    public GameObject PowerupManager;
+    public GameObject[] powerup = new GameObject[2];
+
 
     public bool shotGun;
     public float shotGunTime;
@@ -121,6 +124,9 @@ public class Hero : MonoBehaviour
             twoGuns = false;
             shotGunTime = 0;
             shotGun = false;
+            PowerupManager = GameObject.Find("PowerupManager");
+            powerup[0] = PowerupManager.transform.GetChild(0).gameObject;
+            powerup[1] = PowerupManager.transform.GetChild(1).gameObject;
             Physics2D.IgnoreLayerCollision(8, 10, false);
             Instance = this; // Set the Singleton
         }
@@ -175,6 +181,7 @@ public class Hero : MonoBehaviour
             if (dualGunTime > dualGunLimit)
             {
                 dualGunTime = 0;
+                powerup[1].SetActive(false);
                 twoGuns = !twoGuns;
             }
 
@@ -186,7 +193,8 @@ public class Hero : MonoBehaviour
             if (shotGunTime > shotGunLimit)
             {
                shotGunTime = 0;
-                shotGun = !shotGun;
+               powerup[0].SetActive(false);
+               shotGun = !shotGun;
             }
 
             if (shotGun)
@@ -211,16 +219,17 @@ public class Hero : MonoBehaviour
     {
 
         audioSource.PlayOneShot(clips[0], 0.5f);
-        GameObject projGO = Instantiate<GameObject>(projectilePrefab);
-        projGO.transform.position = (Vector2)transform.position + Vector2.up;
-        Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
-        rigidB.velocity = Vector2.up * projectileSpeed;
 
 
         if (shotGun)
         {
             Vector3 vec3 = new Vector3(.5f, 0, 0);
             Vector3 vec4 = new Vector3(-.5f, 0, 0);
+
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
 
             Vector3 spread = new Vector3(0, 0, 5);
             GameObject bullet = Instantiate(projectilePrefab, transform.position + vec4, Quaternion.Euler(transform.rotation.eulerAngles + spread));
@@ -232,14 +241,26 @@ public class Hero : MonoBehaviour
             Rigidbody2D rb2 = bullet2.GetComponent<Rigidbody2D>();
             rb2.AddForce(bullet2.transform.up * projectileSpeed, ForceMode2D.Impulse);
         }
-
-        if (twoGuns)
+        else if (twoGuns)
         {
-            Vector2 vec2 = new Vector2(1,0);
+            Vector2 vec2 = new Vector2(.5f,0);
+
             GameObject projGO2 = Instantiate<GameObject>(projectilePrefab);
             projGO2.transform.position = (Vector2)transform.position + vec2 + Vector2.up;
             Rigidbody2D rigidB2 = projGO2.GetComponent<Rigidbody2D>();
             rigidB2.velocity = Vector2.up * projectileSpeed;
+
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position - vec2 + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
+        }
+        else
+        {
+            GameObject projGO = Instantiate<GameObject>(projectilePrefab);
+            projGO.transform.position = (Vector2)transform.position + Vector2.up;
+            Rigidbody2D rigidB = projGO.GetComponent<Rigidbody2D>();
+            rigidB.velocity = Vector2.up * projectileSpeed;
         }
 
     }
@@ -256,33 +277,115 @@ public class Hero : MonoBehaviour
     void determineDirection()
     {
         Vector2 currentDirection = (transform.position - lastPosition).normalized;
-
-        if (currentDirection.x == -1)
+        if (shotGun)
         {
-            elapsedTime = 0;
-            animator.SetBool("WalkLeft", true);
+            animator.SetBool("WalkLeft", false);
             animator.SetBool("WalkRight", false);
             animator.SetBool("Idle", false);
-            //yield return new WaitForSeconds(1f);
-        }
-        else if (currentDirection.x == 1)
-        {
-            elapsedTime = 0;
-            animator.SetBool("WalkLeft", false);
-            animator.SetBool("WalkRight", true);
-            animator.SetBool("Idle", false);
-        }
-        else
-        {
-            if (elapsedTime > 1)
+            animator.SetBool("DualgunWalkLeft", false);
+            animator.SetBool("DualgunWalkRight", false);
+            animator.SetBool("DualgunIdle", false);
+            if (currentDirection.x == -1)
             {
-                animator.SetBool("WalkLeft", false);
-                animator.SetBool("WalkRight", false);
-                animator.SetBool("Idle", true);
+                elapsedTime = 0;
+                animator.SetBool("ShotgunWalkLeft", true);
+                animator.SetBool("ShotgunWalkRight", false);
+                animator.SetBool("ShotgunIdle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("ShotgunWalkLeft", false);
+                animator.SetBool("ShotgunWalkRight", true);
+                animator.SetBool("ShotgunIdle", false);
             }
             else
             {
-                elapsedTime += Time.deltaTime;
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("ShotgunWalkLeft", false);
+                    animator.SetBool("ShotgunWalkRight", false);
+                    animator.SetBool("ShotgunIdle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
+            }
+        }
+        else if (twoGuns)
+        {
+            animator.SetBool("WalkLeft", false);
+            animator.SetBool("WalkRight", false);
+            animator.SetBool("Idle", false);
+            animator.SetBool("ShotgunWalkLeft", false);
+            animator.SetBool("ShotgunWalkRight", false);
+            animator.SetBool("ShotgunIdle", false);
+            if (currentDirection.x == -1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("DualgunWalkLeft", true);
+                animator.SetBool("DualgunWalkRight", false);
+                animator.SetBool("DualgunIdle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("DualgunWalkLeft", false);
+                animator.SetBool("DualgunWalkRight", true);
+                animator.SetBool("DualgunIdle", false);
+            }
+            else
+            {
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("DualgunWalkLeft", false);
+                    animator.SetBool("DualgunWalkRight", false);
+                    animator.SetBool("DualgunIdle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
+            }
+        }
+        else
+        {
+            animator.SetBool("ShotgunWalkLeft", false);
+            animator.SetBool("ShotgunWalkRight", false);
+            animator.SetBool("ShotgunIdle", false);
+            animator.SetBool("DualgunWalkLeft", false);
+            animator.SetBool("DualgunWalkRight", false);
+            animator.SetBool("DualgunIdle", false);
+            if (currentDirection.x == -1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("WalkLeft", true);
+                animator.SetBool("WalkRight", false);
+                animator.SetBool("Idle", false);
+                //yield return new WaitForSeconds(1f);
+            }
+            else if (currentDirection.x == 1)
+            {
+                elapsedTime = 0;
+                animator.SetBool("WalkLeft", false);
+                animator.SetBool("WalkRight", true);
+                animator.SetBool("Idle", false);
+            }
+            else
+            {
+                if (elapsedTime > 1)
+                {
+                    animator.SetBool("WalkLeft", false);
+                    animator.SetBool("WalkRight", false);
+                    animator.SetBool("Idle", true);
+                }
+                else
+                {
+                    elapsedTime += Time.deltaTime;
+                }
             }
         }
         //Debug.Log(currentDirection.x);
@@ -383,13 +486,36 @@ public class Hero : MonoBehaviour
         // Bubble or Urchin
         else if (gameObject.tag == "EnemyProj" || (gameObject.tag == "Enemy" && gameObject.GetComponent<Enemy>().alive))
         {
-            Lives--;
-            animator.SetTrigger("Hurt");
-            animator.SetBool("WalkLeft", false);
-            animator.SetBool("WalkRight", false);
-            animator.SetBool("Idle", false);
-            StartCoroutine("getInvulnerable");
-            //gameObject.SetActive(false);
+            if (shotGun)
+            {
+                Lives--;
+                animator.SetTrigger("ShotgunHurt");
+                animator.SetBool("ShotgunWalkLeft", false);
+                animator.SetBool("ShotgunWalkRight", false);
+                animator.SetBool("ShotgunIdle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
+            else if (twoGuns)
+            {
+                Lives--;
+                animator.SetTrigger("DualgunHurt");
+                animator.SetBool("DualgunWalkLeft", false);
+                animator.SetBool("DualgunWalkRight", false);
+                animator.SetBool("DualgunIdle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
+            else
+            {
+                Lives--;
+                animator.SetTrigger("Hurt");
+                animator.SetBool("WalkLeft", false);
+                animator.SetBool("WalkRight", false);
+                animator.SetBool("Idle", false);
+                StartCoroutine("getInvulnerable");
+                //gameObject.SetActive(false);
+            }
         }
         else
         {

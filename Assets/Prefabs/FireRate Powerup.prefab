@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 479534212169695526}
   - component: {fileID: 479534212169695577}
   - component: {fileID: 479534212169695576}
+  - component: {fileID: 2454758257427136619}
   m_Layer: 0
   m_Name: FireRate Powerup
   m_TagString: Untagged
@@ -72,8 +73,9 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 66ac9e329bf4b4a4fa6410a0967be3ce, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Sprite: {fileID: -1458696243826678846, guid: cad99961cb7204345ac2d1f4b1beed9a,
+    type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -111,5 +113,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9972338ae631fb40a30f1f100db2336, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  livesManager: {fileID: 0}
   lives: []
   increase: -0.1
+--- !u!95 &2454758257427136619
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 479534212169695579}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 247fd0868a49fe34eb6d0e473f6fb64b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
