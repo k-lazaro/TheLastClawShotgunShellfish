@@ -14,10 +14,15 @@ using UnityEngine;
 public class SpawnerRandom : MonoBehaviour
 {
     public GameObject[] spawnerPrefab;            // Ideally array of spawners
+    public GameObject[] prefabEnemies;       // Array of Enemy prefabs. You can add different types here
     public FireBubbles fb;
     public float timeBetweenSpawn;
+
+    public float enemySpawnPerSecond = 0.5f; // # Enemies/second aka spawn rate
+    public float enemyDefaultPadding = 1.5f; // Padding for position
     //public int index;
     private float elapsedTime;                    // Keeps track of elapsed time
+    private BoundsCheck bndCheck;
 
     void Awake()
     {
@@ -132,6 +137,37 @@ public class SpawnerRandom : MonoBehaviour
         s.transform.position = pos;
         yield return new WaitForSeconds(timeActive);
         Destroy(s);
+    }
+
+    public void SpawnEnemy()
+    {
+        // Pick a random Enemy prefab to instantiate
+
+        int index = Random.Range(0, prefabEnemies.Length);
+        GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+
+        // Position the Enemy above the screen with a random x position
+        float enemyPadding = enemyDefaultPadding;
+
+        if (enemy.GetComponent<BoundsCheck>() != null)
+        {
+            enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
+        }
+
+        // Set the initial position for the spawned Enemy
+        Vector3 pos = Vector3.zero;
+
+        float xMin = -bndCheck.camWidth + enemyPadding;
+        float xMax = bndCheck.camWidth - enemyPadding;
+
+        pos.x = Random.Range(xMin, xMax);
+        pos.y = bndCheck.camHeight + enemyPadding;
+
+        enemy.transform.position = pos;
+
+        // Call SpawnEnemy() again
+        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+
     }
 
     //public IEnumerator spawnMultipleSpawners(int num, int index)
