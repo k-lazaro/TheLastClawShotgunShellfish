@@ -488,32 +488,32 @@ public class Hero : MonoBehaviour
         {
             if (shotGun)
             {
+                StartCoroutine("getInvulnerable");
                 Lives--;
                 animator.SetTrigger("ShotgunHurt");
                 animator.SetBool("ShotgunWalkLeft", false);
                 animator.SetBool("ShotgunWalkRight", false);
                 animator.SetBool("ShotgunIdle", false);
-                StartCoroutine("getInvulnerable");
                 //gameObject.SetActive(false);
             }
             else if (twoGuns)
             {
+                StartCoroutine("getInvulnerable");
                 Lives--;
                 animator.SetTrigger("DualgunHurt");
                 animator.SetBool("DualgunWalkLeft", false);
                 animator.SetBool("DualgunWalkRight", false);
                 animator.SetBool("DualgunIdle", false);
-                StartCoroutine("getInvulnerable");
                 //gameObject.SetActive(false);
             }
             else
             {
+                StartCoroutine("getInvulnerable");
                 Lives--;
                 animator.SetTrigger("Hurt");
                 animator.SetBool("WalkLeft", false);
                 animator.SetBool("WalkRight", false);
                 animator.SetBool("Idle", false);
-                StartCoroutine("getInvulnerable");
                 //gameObject.SetActive(false);
             }
         }
