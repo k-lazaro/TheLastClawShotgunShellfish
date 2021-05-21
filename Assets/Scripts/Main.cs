@@ -63,35 +63,35 @@ public class Main : MonoBehaviour
     }
 
 
-    public void SpawnEnemy()
-    {
-       // Pick a random Enemy prefab to instantiate
+    //public void SpawnEnemy()
+    //{
+    //   // Pick a random Enemy prefab to instantiate
 
-       int index = Random.Range(0, prefabEnemies.Length);
-       GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+    //   int index = Random.Range(0, prefabEnemies.Length);
+    //   GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
 
-       // Position the Enemy above the screen with a random x position
-       float enemyPadding = enemyDefaultPadding;
+    //   // Position the Enemy above the screen with a random x position
+    //   float enemyPadding = enemyDefaultPadding;
 
-       if (enemy.GetComponent<BoundsCheck>() != null)
-       {
-           enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
-       }
+    //   if (enemy.GetComponent<BoundsCheck>() != null)
+    //   {
+    //       enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
+    //   }
 
-       // Set the initial position for the spawned Enemy
-       Vector3 pos = Vector3.zero;
+    //   // Set the initial position for the spawned Enemy
+    //   Vector3 pos = Vector3.zero;
 
-       float xMin = -bndCheck.camWidth + enemyPadding;
-       float xMax = bndCheck.camWidth - enemyPadding;
+    //   float xMin = -bndCheck.camWidth + enemyPadding;
+    //   float xMax = bndCheck.camWidth - enemyPadding;
 
-       pos.x = Random.Range(xMin, xMax);
-       pos.y = bndCheck.camHeight + enemyPadding;
+    //   pos.x = Random.Range(xMin, xMax);
+    //   pos.y = bndCheck.camHeight + enemyPadding;
 
-       enemy.transform.position = pos;
+    //   enemy.transform.position = pos;
 
-       // Call SpawnEnemy() again
-       Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
+    //   // Call SpawnEnemy() again
+    //   Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
 
-    }
+    //}
 
 }
