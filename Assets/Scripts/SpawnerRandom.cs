@@ -18,17 +18,18 @@ public class SpawnerRandom : MonoBehaviour
     public FireBubbles fb;
     public float timeBetweenSpawn;
 
-    public float enemySpawnPerSecond = 0.5f; // # Enemies/second aka spawn rate
+    public float timeBetweenEnemySpawn = 2.0f; // # Enemies/second aka spawn rate
     public float enemyDefaultPadding = 1.5f; // Padding for position
     //public int index;
-    private float elapsedTime;                    // Keeps track of elapsed time
+    private float elapsedTime;                    // Keeps track of elapsed time for spawners
+    private float elapsedTimeForEnemy;
     private BoundsCheck bndCheck;
 
     void Awake()
     {
         // Set for difficulty 0
         //StartCoroutine("spawnSpawner");
-
+        bndCheck = GetComponent<BoundsCheck>();
         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
         fb.setFireRateAmount(2, 10);
         //fb.setFireRateAmount(.2f, 1);
@@ -38,6 +39,7 @@ public class SpawnerRandom : MonoBehaviour
     void Start()
     {
         elapsedTime = 0;
+        elapsedTimeForEnemy = 0;
         //spawnerPrefab.transform.position = Vector2.zero;
         //gameObject.transform.position = Vector2.zero;
     }
@@ -59,7 +61,7 @@ public class SpawnerRandom : MonoBehaviour
                         //StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
                         StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         //timeActive = 5f;
-                        timeBetweenSpawn = 5f;
+                        timeBetweenSpawn = 1.5f;
                         break;
                     //case 0: StartCoroutine(spawnRandomPositionSpawner(0)); break;
                     case 1:
@@ -118,6 +120,20 @@ public class SpawnerRandom : MonoBehaviour
                 //StartCoroutine(spawnMultipleSpawners(2));
             }
             elapsedTime += Time.deltaTime;
+
+            // Separate timer for enemy spawning
+            if (elapsedTimeForEnemy > timeBetweenEnemySpawn)
+            {
+                elapsedTimeForEnemy = 0;
+                switch (Timer.Instance.difficulty)       // Changes difficulty of game
+                {
+                    case 1:
+                        SpawnRandomEnemy();
+                        break;
+                }
+                
+            }
+            elapsedTimeForEnemy += Time.deltaTime;
         }
 
     }
@@ -139,7 +155,7 @@ public class SpawnerRandom : MonoBehaviour
         Destroy(s);
     }
 
-    public void SpawnEnemy()
+    public void SpawnRandomEnemy()
     {
         // Pick a random Enemy prefab to instantiate
 
@@ -164,10 +180,12 @@ public class SpawnerRandom : MonoBehaviour
         pos.y = bndCheck.camHeight + enemyPadding;
 
         enemy.transform.position = pos;
+    }
 
-        // Call SpawnEnemy() again
-        Invoke("SpawnEnemy", 1f / enemySpawnPerSecond);
-
+    public void SpawnEnemy(int index, Vector2 pos)
+    {
+        GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+        enemy.transform.position = pos;
     }
 
     //public IEnumerator spawnMultipleSpawners(int num, int index)
