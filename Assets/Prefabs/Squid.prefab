@@ -119,7 +119,7 @@ MonoBehaviour:
   speed: 10
   health: 0
   alive: 0
-  animator: {fileID: 0}
+  animator: {fileID: 2575578280398761255}
 --- !u!61 &3369057968612140335
 BoxCollider2D:
   m_ObjectHideFlags: 0
