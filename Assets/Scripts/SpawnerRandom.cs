@@ -49,11 +49,12 @@ public class SpawnerRandom : MonoBehaviour
                 switch (Timer.Instance.difficulty)       // Changes difficulty of game
                 {
                     case 0:
-                        // fb.setRatioBool(false);
-                        // StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
-                        // StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
+                        // One bubble spawner
+                        fb.setRatioBool(false);
+                        //StartCoroutine(spawnRandomPositionSpawner(2, 1.45f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         //timeActive = 5f;
-                        //timeBetweenSpawn = 5f;
+                        timeBetweenSpawn = 5f;
                         break;
                     //case 0: StartCoroutine(spawnRandomPositionSpawner(0)); break;
                     case 1:

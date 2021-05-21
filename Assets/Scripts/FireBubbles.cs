@@ -76,7 +76,7 @@ public class FireBubbles : MonoBehaviour
         angleStep = step;
     }
 
-    protected void Fire()
+    protected virtual void Fire()
     {
         float angleStep = (endAngle - startAngle) / bubblesAmount;
         float angle = startAngle;

@@ -9,7 +9,7 @@ public class FireCoral : FireUrchins
         //spriteWidthHalf = CoralPool.coralPoolInstance.GetBubble().GetComponent<SpriteRenderer>().bounds.size.x / 2;
     }
 
-    protected void Fire()
+    protected override void Fire()
     {
         startingPoint = Camera.main.ScreenToWorldPoint(new Vector2(Random.Range(0f, 4f), Screen.height));
         for (int i = 0; i < bubblesAmount + 1; i++)
