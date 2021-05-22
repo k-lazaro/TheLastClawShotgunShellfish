@@ -66,7 +66,7 @@ public class SpawnerRandom : MonoBehaviour
                     //case 0: StartCoroutine(spawnRandomPositionSpawner(0)); break;
                     case 1:
                         // Two bubble spawners
-                        fb.setFireRateAmount(.7f, 10);
+                        fb.setFireRateAmount(.8f, 10);
                         StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
                         break;
@@ -123,17 +123,17 @@ public class SpawnerRandom : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             // Separate timer for enemy spawning
-            //if (elapsedTimeForEnemy > timeBetweenEnemySpawn)
-            //{
-            //    elapsedTimeForEnemy = 0;
-            //    switch (Timer.Instance.difficulty)       // Changes difficulty of game
-            //    {
-            //        case 1:
-            //            SpawnRandomEnemy();
-            //            break;
-            //    }
-                
-            //}
+            if (elapsedTimeForEnemy > timeBetweenEnemySpawn)
+            {
+                elapsedTimeForEnemy = 0;
+                switch (Timer.Instance.difficulty)       // Changes difficulty of game
+                {
+                    case 1:
+                        SpawnEnemy(0);
+                        break;
+                }
+
+            }
             elapsedTimeForEnemy += Time.deltaTime;
         }
 
@@ -143,7 +143,14 @@ public class SpawnerRandom : MonoBehaviour
     {
         //Debug.Log("Spawn");
         GameObject s = Instantiate<GameObject>(spawnerPrefab[index]);
-        s.transform.position = generateRandomVector();
+        Vector2 randomVec = generateRandomVector();
+        //Debug.Log(Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position));
+        if (Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position) < 4.0)
+        {
+            Debug.Log("Triggered movement");
+            randomVec.y += 3.0f;
+        }
+        s.transform.position = randomVec;
         yield return new WaitForSeconds(timeActive);
         Destroy(s);
     }
@@ -186,6 +193,31 @@ public class SpawnerRandom : MonoBehaviour
     public void SpawnEnemy(int index, Vector2 pos)
     {
         GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+        enemy.transform.position = pos;
+    }
+
+    public void SpawnEnemy(int index)
+    {
+        Debug.Log("Spawn enemy");
+        GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+
+        // Position the Enemy above the screen with a random x position
+        float enemyPadding = enemyDefaultPadding;
+
+        if (enemy.GetComponent<BoundsCheck>() != null)
+        {
+            enemyPadding = Mathf.Abs(enemy.GetComponent<BoundsCheck>().radius);
+        }
+
+        // Set the initial position for the spawned Enemy
+        Vector3 pos = Vector3.zero;
+
+        float xMin = -bndCheck.camWidth + enemyPadding;
+        float xMax = bndCheck.camWidth - enemyPadding;
+
+        pos.x = Random.Range(xMin, xMax);
+        pos.y = bndCheck.camHeight + enemyPadding;
+
         enemy.transform.position = pos;
     }
 
