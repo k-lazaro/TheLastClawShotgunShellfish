@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerUpSpawn : MonoBehaviour
 {
+    public static PowerUpSpawn Instance;
     public GameObject[] spawnerPrefab;            // Ideally array of spawners
 
     public HealthPowerUp hpu;
@@ -13,6 +14,10 @@ public class PowerUpSpawn : MonoBehaviour
 
     void Awake()
     {
+        if (Instance == null)
+            Instance = this; // Set the Singleton
+        else
+            Debug.LogError("PowerUpSpawn.Awake() - Attempted to assign second PowerUpSpawn instance");
         // Set for difficulty 0
         //StartCoroutine("spawnSpawner");
 
@@ -47,14 +52,14 @@ public class PowerUpSpawn : MonoBehaviour
                         break;
                     //case 0: StartCoroutine(spawnRandomPositionSpawner(0)); break;
                     case 1:
-                        // Two bubble spawners
+                        // Firerate, shotgun
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
 
                         hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(3, 10.0f));
                         break;
                     case 2:
-                        // One bubble, one urchin
+                        // Dual gun, health
                         hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(2, 10.0f));
 
@@ -62,7 +67,7 @@ public class PowerUpSpawn : MonoBehaviour
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 3:
-                        // Two Bubbles, One Urchin
+                        //  Firerate, dual gun
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
@@ -71,7 +76,7 @@ public class PowerUpSpawn : MonoBehaviour
                         StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 10.0f));
                         break;
                     case 4:
-                        // One Urchin, One Bubble
+                        // Shotgun, Health
                         timeBetweenSpawn = 8.0f;
                         hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnStaticPositionSpawner(3, Vector2.zero, 10.0f));
@@ -80,6 +85,7 @@ public class PowerUpSpawn : MonoBehaviour
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 5:
+                        // Health, Shotgun
                         timeBetweenSpawn = 6.0f;
                         hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
