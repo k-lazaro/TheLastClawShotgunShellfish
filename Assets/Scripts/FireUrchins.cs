@@ -22,7 +22,7 @@ public class FireUrchins : FireBubbles
         while (startingPoint.x < horizontalCameraThreshold)
         {
             float xStep = 0;
-            if (Random.Range(0.0f, 1.0f) <= 0.5f)
+            if (Random.Range(0.0f, 1.0f) <= 0.8f)       // 80% of time, xstep will be great
             {
                 xStep = Random.Range(3.0f, 6.0f);
             }
