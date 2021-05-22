@@ -6,19 +6,28 @@ public class FireCoral : FireUrchins
 {
     void Awake()
     {
-        //spriteWidthHalf = CoralPool.coralPoolInstance.GetBubble().GetComponent<SpriteRenderer>().bounds.size.x / 2;
+        spriteWidth = CoralPool.coralPoolInstance.GetBubble().GetComponent<SpriteRenderer>().bounds.size.x;
+        horizontalCameraThreshold = Camera.main.ScreenToWorldPoint(new Vector2(Screen.width, 0)).x;
     }
 
     protected override void Fire()
     {
-        startingPoint = Camera.main.ScreenToWorldPoint(new Vector2(Random.Range(0f, 4f), Screen.height));
-        for (int i = 0; i < bubblesAmount + 1; i++)
+        startingPoint = Camera.main.ScreenToWorldPoint(new Vector2(Random.Range(0f, 4f) + spriteWidth, Screen.height));
+        while (startingPoint.x < horizontalCameraThreshold)
         {
-            float xStep = Random.Range(3.0f, 6.0f);
+            float xStep = 0;
+            if (Random.Range(0.0f, 1.0f) <= 0.8f)       // 80% of time, xstep will be great
+            {
+                xStep = Random.Range(3.0f, 6.0f);
+            }
+            else
+            {
+                xStep = Random.Range(1.0f, 3.0f);
+            }
+
             Vector2 bubMoveVector = new Vector3(0, -1f);
 
             GameObject bub = CoralPool.coralPoolInstance.GetBubble();
-            bub.GetComponent<Coral>().setAttach(false);
             bub.transform.position = startingPoint;
             bub.GetComponent<EnemyProjectile>().SetActiveTime(7f);
             bub.SetActive(true);

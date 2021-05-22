@@ -26,6 +26,11 @@ public class Coral : EnemyProjectile
             transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
     }
 
+    public void TriggerDestroy()
+    {
+        Destroy();
+    }
+
     public void setAttach(bool b)
     {
         attach = b;
@@ -60,6 +65,7 @@ public class Coral : EnemyProjectile
                 animator.SetTrigger("Dead");
                 yield return new WaitForSeconds(0.667f);
                 Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), Hero.Instance.GetComponent<Collider2D>(), false);
+                if (attach) setAttach(false);
                 Destroy();
             }
             else
@@ -70,7 +76,7 @@ public class Coral : EnemyProjectile
         }
         if (otherGameObject.tag == "Hero")
         {
-            attach = true;
+            setAttach(true);
             transform.SetParent(otherGameObject.transform);
         }
         yield return null;
