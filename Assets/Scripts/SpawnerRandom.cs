@@ -77,32 +77,33 @@ public class SpawnerRandom : MonoBehaviour
                         StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
 
                         fb = spawnerPrefab[1].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(.7f, 10);
+                        fb.setFireRateAmount(.9f, 10);
                         StartCoroutine(spawnRandomPositionSpawner(1, 1.45f));
                         break;
                     case 3:
                         // Two Bubbles, One Urchin
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
-                        fb.setFireRateAmount(.5f, 14);
+                        timeBetweenSpawn = 2.0f;
+                        fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                        StartCoroutine(spawnRandomPositionSpawner(0, 2.45f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 2.45f));
+                        fb.setFireRateAmount(.65f, 14);
 
                         fb = spawnerPrefab[1].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(.6f, 6);
                         StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 1.45f));
                         break;
                     case 4:
-                        // One Urchin, One Bubble
+                        // One Coral, One Bubble
                         fb.setRatioBool(false);
                         timeBetweenSpawn = 8.0f;
-                        fb = spawnerPrefab[1].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(.5f, 14);
-                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 6.45f));
+                        fb = spawnerPrefab[2].GetComponent<FireBubbles>();
+                        fb.setFireRateAmount(2.0f, 0);
+                        StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 4.0f));
 
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(0.01f, 0);
+                        fb.setFireRateAmount(0.025f, 0);
                         fb.setAngleStep(10.134038f);
                         fb.setRatioBool(true);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 5.0f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 8.0f));
                         break;
                     case 5:
                         timeBetweenSpawn = 6.0f;
@@ -122,17 +123,17 @@ public class SpawnerRandom : MonoBehaviour
             elapsedTime += Time.deltaTime;
 
             // Separate timer for enemy spawning
-            if (elapsedTimeForEnemy > timeBetweenEnemySpawn)
-            {
-                elapsedTimeForEnemy = 0;
-                switch (Timer.Instance.difficulty)       // Changes difficulty of game
-                {
-                    case 1:
-                        SpawnRandomEnemy();
-                        break;
-                }
+            //if (elapsedTimeForEnemy > timeBetweenEnemySpawn)
+            //{
+            //    elapsedTimeForEnemy = 0;
+            //    switch (Timer.Instance.difficulty)       // Changes difficulty of game
+            //    {
+            //        case 1:
+            //            SpawnRandomEnemy();
+            //            break;
+            //    }
                 
-            }
+            //}
             elapsedTimeForEnemy += Time.deltaTime;
         }
 
