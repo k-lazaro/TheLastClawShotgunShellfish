@@ -42,11 +42,11 @@ public class Timer : MonoBehaviour
             //if (timeStart > 90)
             //    difficulty = 5;
 
-            if (timeStart > 15)
+            if (timeStart > 10)
                 difficulty = 1;
-            if (timeStart > 30)
+            if (timeStart > 20)
                 difficulty = 2;
-            if (timeStart > 50)
+            if (timeStart > 35)
                 difficulty = 3;
             if (timeStart > 75)
                 difficulty = 4;
