@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Squid : Enemy
 {
+    void Awake()
+    {
+        health = 2;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
