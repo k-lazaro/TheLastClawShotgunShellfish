@@ -31,10 +31,10 @@ public class Enemy : MonoBehaviour
 
     }
 
-
     void Awake()
     {
-        health = 2;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+        health = 1;
         alive = true;
         bndCheck = GetComponent<BoundsCheck>();
     }
@@ -66,9 +66,17 @@ public class Enemy : MonoBehaviour
                 alive = false;
                 animator.SetTrigger("Dead");
                 yield return new WaitForSeconds(0.917f);
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                // Enemy drops powerup
+                GameObject powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[2]);
+                powerup.transform.position = gameObject.transform.position;
+                // Wait four seconds until disappear
+                yield return new WaitForSeconds(4.0f);
+                Destroy(powerup);
                 Destroy(gameObject);      // Destroy this Enemy GameObject
             }
-            yield return null;
+            else
+                yield return null;
         }
     }
 
