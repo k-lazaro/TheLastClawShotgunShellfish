@@ -461,7 +461,7 @@ public class Hero : MonoBehaviour
     //}
 
     // Used when object is not a trigger
-    private void OnCollisionEnter2D(Collision2D collision)
+    private IEnumerator OnCollisionEnter2D(Collision2D collision)
     {
         GameObject gameObject = collision.gameObject;
 
@@ -514,6 +514,18 @@ public class Hero : MonoBehaviour
                 animator.SetBool("WalkLeft", false);
                 animator.SetBool("WalkRight", false);
                 animator.SetBool("Idle", false);
+
+                if (transform.childCount != 0)
+                {
+                    foreach (Transform child in transform)
+                    {
+                        child.gameObject.GetComponent<Coral>().animator.SetTrigger("Dead");
+                        yield return new WaitForSeconds(0.667f);
+                        child.gameObject.transform.SetParent(null);
+                        child.gameObject.GetComponent<Coral>().setAttach(false);
+                        child.gameObject.GetComponent<Coral>().TriggerDestroy();
+                    }
+                }
                 //gameObject.SetActive(false);
             }
         }
