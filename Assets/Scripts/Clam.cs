@@ -16,6 +16,7 @@ public class Clam : Enemy
 
     void Awake()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
         open = false;
         health = 2;
         alive = true;
@@ -62,6 +63,13 @@ public class Clam : Enemy
                     alive = false;
                     animator.SetTrigger("Dead");
                     yield return new WaitForSeconds(0.667f);
+                    gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    // Enemy drops powerup
+                    GameObject powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[3]);
+                    powerup.transform.position = gameObject.transform.position;
+                    // Wait four seconds until disappear
+                    yield return new WaitForSeconds(8.0f);
+                    Destroy(powerup);
                     Destroy(gameObject);      // Destroy this Enemy GameObject
                 }
             }
