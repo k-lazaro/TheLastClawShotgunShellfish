@@ -6,6 +6,7 @@ public class Squid : Enemy
 {
     void Awake()
     {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
         health = 2;
     }
 
@@ -34,6 +35,27 @@ public class Squid : Enemy
                 alive = false;
                 animator.SetTrigger("Hurt");
                 yield return new WaitForSeconds(0.5f);
+                gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                // Enemy drops powerup
+                float rng = Random.Range(0.0f, 1.0f);
+                GameObject powerup = null;
+                // Drops health 20% of time
+                if (rng <= 0.25f)
+                {
+                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[3]);
+                }
+                // Drops fire rate 30% of time
+                else if (rng >= 0.7f)
+                {
+                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[2]);
+                }
+                if (powerup != null)
+                {
+                    powerup.transform.position = gameObject.transform.position;
+                    // Wait four seconds until disappear
+                    yield return new WaitForSeconds(4.0f);
+                    Destroy(powerup);
+                }
                 Destroy(gameObject);      // Destroy this Enemy GameObject
             }
             yield return null;
