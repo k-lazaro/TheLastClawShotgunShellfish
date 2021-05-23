@@ -74,7 +74,7 @@ public class Coral : EnemyProjectile
                 Destroy(otherGameObject);
             }
         }
-        if (otherGameObject.tag == "Hero")
+        else if (otherGameObject.tag == "Hero")
         {
             setAttach(true);
             transform.SetParent(otherGameObject.transform);
