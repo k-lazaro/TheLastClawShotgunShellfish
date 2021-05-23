@@ -42,15 +42,15 @@ public class Timer : MonoBehaviour
             //if (timeStart > 90)
             //    difficulty = 5;
 
-            if (timeStart > 10)
+            if (timeStart > 7)
                 difficulty = 1;
             if (timeStart > 20)
                 difficulty = 2;
             if (timeStart > 35)
                 difficulty = 3;
-            if (timeStart > 75)
+            if (timeStart > 45)
                 difficulty = 4;
-            if (timeStart > 85)
+            if (timeStart > 55)
                 difficulty = 5;
 
             textBox.text = Mathf.Round(timeStart).ToString();
