@@ -533,6 +533,7 @@ MonoBehaviour:
   prefabEnemies:
   - {fileID: 9005961175074659199, guid: deebefb295bcfbb4ab0905d6cb9b7c6a, type: 3}
   - {fileID: 2895173484636397525, guid: f8e68f27141e54a4ab4eea578b59948f, type: 3}
+  - {fileID: 137740403921129814, guid: 9abae1099a77d9642990e6e52acae95b, type: 3}
   fb: {fileID: 0}
   timeBetweenSpawn: 1.5
   timeBetweenEnemySpawn: 2
@@ -567,6 +568,8 @@ MonoBehaviour:
   spawnerPrefab:
   - {fileID: 3139869305537545432, guid: db1cee1d0fde7ad4e9305232e7768f84, type: 3}
   - {fileID: 7883013543527095591, guid: cda8b5e5f423b7d4cab54ca2b058f92c, type: 3}
+  - {fileID: 479534212169695579, guid: a9241f65528338d4fb1cb0bdd06ed17d, type: 3}
+  - {fileID: 96802165434960277, guid: 875e2005c1365924baebb70cde71627e, type: 3}
   prefabEnemies: []
   fb: {fileID: 0}
   timeBetweenSpawn: 15
