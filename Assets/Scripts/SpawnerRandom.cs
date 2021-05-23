@@ -93,28 +93,70 @@ public class SpawnerRandom : MonoBehaviour
                         StartCoroutine(spawnRandomPositionSpawner(0, 8.0f));
                         break;
                     case 4:
-                        // One Coral, One Bubble
-                        fb.setRatioBool(false);
-                        timeBetweenSpawn = 8.0f;
-                        fb = spawnerPrefab[2].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(2.0f, 0);
-                        StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 4.0f));
+                        //fb.setRatioBool(false);
+                        //timeBetweenSpawn = 8.0f;
+                        //fb = spawnerPrefab[2].GetComponent<FireBubbles>();
+                        //fb.setFireRateAmount(2.0f, 0);
+                        //StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 4.0f));
 
+                        // One Bubble
+                        timeBetweenSpawn = 8.0f;
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(0.025f, 0);
                         fb.setAngleStep(10.134038f);
                         fb.setRatioBool(true);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 8.0f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
                         break;
                     case 5:
-                        timeBetweenSpawn = 6.0f;
-                        fb.setRatioBool(true);
-                        fb.setFireRateAmount(0.017f, 0);
-                        fb.setAngleStep(1.99999f);
+                        timeBetweenSpawn = 1.5f;
+                        fb = spawnerPrefab[1].GetComponent<FireBubbles>();
+                        fb.setRatioBool(false);
+                        fb = spawnerPrefab[2].GetComponent<FireBubbles>();
+                        fb.setRatioBool(false);
+                        StartCoroutine(spawnRandomPositionSpawner(Random.Range(1, spawnerPrefab.Length), 0f));
 
-                        StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
+                        float rng = Random.Range(0.0f, 1.0f);
+                        if (rng < 0.20f)
+                        {
+                            fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                            fb.setFireRateAmount(0.025f, 0);
+                            fb.setAngleStep(10.134038f);
+                            fb.setRatioBool(true);
+                            StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
+                        }
+                        else if (rng < 0.40f)
+                        {
+                            fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                            fb.setRatioBool(true);
+                            fb.setFireRateAmount(0.035f, 0);
+                            fb.setAngleStep(1.99999f);
+                            StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
+                        }
+                        else if (rng < 0.60f)
+                        {
+                            fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                            fb.setRatioBool(true);
+                            fb.setFireRateAmount(0.035f, 0);
+                            fb.setAngleStep(2.53243783f);
+                            StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
+                        }
+                        else if (rng < 0.75)
+                        {
+                            fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                            fb.setRatioBool(true);
+                            fb.setFireRateAmount(0.05f, 0);
+                            fb.setAngleStep(0.1430681f);
+                            StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
+                        }
+                        else
+                        {
+                            fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                            fb.setFireRateAmount(0.025f, 0);
+                            fb.setAngleStep(10.166407f);
+                            fb.setRatioBool(true);
+                            StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
+                        }
                         //fb.setAngleStep(10.134038f);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 6.0f));
                         break;
                     default: break;
                 }
@@ -130,17 +172,34 @@ public class SpawnerRandom : MonoBehaviour
                 switch (Timer.Instance.difficulty)       // Changes difficulty of game
                 {
                     case 1:
+                        // Swordfish
                         SpawnEnemy(0);
                         break;
                     case 2:
+                        // Squid
                         timeBetweenEnemySpawn = 7.0f;
                         SpawnEnemy(1);
                         break;
                     case 3:
+                        // Clam
                         timeBetweenEnemySpawn = 7.0f;
                         SpawnEnemy(2, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(7.0f, 12.0f)));
                         break;
-
+                    case 4:
+                        timeBetweenEnemySpawn = 7.0f;
+                        SpawnRandomEnemy();
+                        SpawnRandomEnemy();
+                        break;
+                    case 5:
+                        timeBetweenEnemySpawn = 6.0f;
+                        SpawnRandomEnemy();
+                        SpawnRandomEnemy();
+                        SpawnRandomEnemy();
+                        //float rng = Random.Range(0.0f, 1.0f);
+                        // Spawn clam 15 percent of time
+                        //if (rng <= 0.15f) 
+                        //    SpawnEnemy(2, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(7.0f, 12.0f)));
+                        break;
                 }
 
             }
