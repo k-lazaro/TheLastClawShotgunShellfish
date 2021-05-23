@@ -529,10 +529,10 @@ public class Hero : MonoBehaviour
                 //gameObject.SetActive(false);
             }
         }
-        else
-        {
-            print("Triggered by non-Enemy: " + gameObject.name);
-        }
+        //else
+        //{
+        //    print("Triggered by non-Enemy: " + gameObject.name);
+        //}
     }
 
     private void OnCollisionStay2D(Collision2D collision)
