@@ -2,13 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PowerUpSpawn : MonoBehaviour
+public class PowerUpSpawn : SpawnerRandom
 {
     public static PowerUpSpawn Instance;
-    public GameObject[] spawnerPrefab;            // Ideally array of spawners
 
     public HealthPowerUp hpu;
-    public float timeBetweenSpawn;
     //public int index;
     private float elapsedTime;                    // Keeps track of elapsed time
 
@@ -18,12 +16,6 @@ public class PowerUpSpawn : MonoBehaviour
             Instance = this; // Set the Singleton
         else
             Debug.LogError("PowerUpSpawn.Awake() - Attempted to assign second PowerUpSpawn instance");
-        // Set for difficulty 0
-        //StartCoroutine("spawnSpawner");
-
-        //fb = spawnerPrefab[0].GetComponent<FireBubbles>();
-        //fb.setFireRateAmount(2, 10);
-        //fb.setFireRateAmount(.2f, 1);
     }
 
     // Start is called before the first frame update
@@ -52,92 +44,51 @@ public class PowerUpSpawn : MonoBehaviour
                         break;
                     //case 0: StartCoroutine(spawnRandomPositionSpawner(0)); break;
                     case 1:
-                        // Firerate, shotgun
+                        // Dual gun, shotgun
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
 
-                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnRandomPositionSpawner(3, 10.0f));
+                        hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 2:
-                        // Dual gun, health
-                        hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnRandomPositionSpawner(2, 10.0f));
+                        // Dual gun, shotgun
+                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
 
                         hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 3:
-                        //  Firerate, dual gun
+                        //  Dual gun, shotgun
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
 
-                        hpu = spawnerPrefab[2].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 10.0f));
+                        hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 10.0f));
                         break;
                     case 4:
-                        // Shotgun, Health
+                        // Shotgun, Dual gun
                         timeBetweenSpawn = 8.0f;
-                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnStaticPositionSpawner(3, Vector2.zero, 10.0f));
+                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnStaticPositionSpawner(0, Vector2.zero, 10.0f));
 
                         hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
                         break;
                     case 5:
-                        // Health, Shotgun
+                        // Dual gun, Shotgun
                         timeBetweenSpawn = 6.0f;
                         hpu = spawnerPrefab[1].GetComponent<HealthPowerUp>();
                         StartCoroutine(spawnRandomPositionSpawner(1, 10.0f));
-                        //fb.setAngleStep(10.134038f);
-                        hpu = spawnerPrefab[3].GetComponent<HealthPowerUp>();
-                        StartCoroutine(spawnRandomPositionSpawner(3, 10.0f));
+                        hpu = spawnerPrefab[0].GetComponent<HealthPowerUp>();
+                        StartCoroutine(spawnRandomPositionSpawner(0, 10.0f));
                         break;
                     default: break;
                 }
-                //StartCoroutine("spawnSpawner");
-                //StartCoroutine(spawnMultipleSpawners(2));
             }
             elapsedTime += Time.deltaTime;
         }
 
-    }
-
-    public IEnumerator spawnRandomPositionSpawner(int index, float timeActive)
-    {
-        //Debug.Log("Spawn");
-        GameObject s = Instantiate<GameObject>(spawnerPrefab[index]);
-        s.transform.position = generateRandomVector();
-        yield return new WaitForSeconds(timeActive);
-        Destroy(s);
-    }
-
-    public IEnumerator spawnStaticPositionSpawner(int index, Vector2 pos, float timeActive)
-    {
-        GameObject s = Instantiate<GameObject>(spawnerPrefab[index]);
-        s.transform.position = pos;
-        yield return new WaitForSeconds(timeActive);
-        Destroy(s);
-    }
-
-    //public IEnumerator spawnMultipleSpawners(int num, int index)
-    //{
-    //    GameObject[] spawners = new GameObject[num];
-    //    for (int i = 0; i < num; i++)
-    //    {
-    //        spawners[i] = Instantiate<GameObject>(spawnerPrefab[index]);
-    //        spawners[i].transform.position = generateRandomVector();
-    //    }
-    //    yield return new WaitForSeconds(timeActive);
-    //    for (int j = 0; j < num; j++)
-    //    {
-    //        Destroy(spawners[j]);
-    //    }
-    //}
-
-    Vector2 generateRandomVector()
-    {
-        // Hard coded values
-        return new Vector2(Random.Range(-8.5f, 8.5f), Random.Range(-1.5f, 13.5f));
     }
 }
