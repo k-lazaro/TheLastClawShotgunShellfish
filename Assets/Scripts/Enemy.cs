@@ -68,11 +68,26 @@ public class Enemy : MonoBehaviour
                 yield return new WaitForSeconds(0.917f);
                 gameObject.GetComponent<SpriteRenderer>().enabled = false;
                 // Enemy drops powerup
-                GameObject powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[0]);
-                powerup.transform.position = gameObject.transform.position;
-                // Wait four seconds until disappear
-                yield return new WaitForSeconds(4.0f);
-                Destroy(powerup);
+                float rng = Random.Range(0.0f, 1.0f);
+                GameObject powerup = null;
+                // Drops health 20% of time
+                if (rng <= 0.2f)
+                {
+                    // Health power up
+                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[3]);
+                }
+                else if (rng >= 0.6f)
+                {
+                    // Fire rate power up
+                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[2]);
+                }
+                if (powerup != null)
+                {
+                    powerup.transform.position = gameObject.transform.position;
+                    // Wait four seconds until disappear
+                    yield return new WaitForSeconds(4.0f);
+                    Destroy(powerup);
+                }
                 Destroy(gameObject);      // Destroy this Enemy GameObject
             }
             else
