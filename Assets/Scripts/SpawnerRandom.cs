@@ -74,22 +74,23 @@ public class SpawnerRandom : MonoBehaviour
                         // One bubble, one urchin
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(.6f, 12);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.45f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 1.0f));
 
                         fb = spawnerPrefab[1].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(.9f, 10);
                         StartCoroutine(spawnRandomPositionSpawner(1, 1.45f));
                         break;
                     case 3:
-                        // Two Bubbles, One Urchin
-                        timeBetweenSpawn = 2.0f;
-                        fb = spawnerPrefab[0].GetComponent<FireBubbles>();
-                        StartCoroutine(spawnRandomPositionSpawner(0, 2.45f));
-                        StartCoroutine(spawnRandomPositionSpawner(0, 2.45f));
-                        fb.setFireRateAmount(.65f, 14);
+                        // One Coral, One Bubble
+                        fb.setRatioBool(false);
+                        timeBetweenSpawn = 8.0f;
+                        fb = spawnerPrefab[2].GetComponent<FireBubbles>();
+                        fb.setFireRateAmount(2.0f, 0);
+                        StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 4.0f));
 
-                        fb = spawnerPrefab[1].GetComponent<FireBubbles>();
-                        StartCoroutine(spawnStaticPositionSpawner(1, Vector2.zero, 1.45f));
+                        fb = spawnerPrefab[0].GetComponent<FireBubbles>();
+                        fb.setFireRateAmount(.8f, 16);
+                        StartCoroutine(spawnRandomPositionSpawner(0, 8.0f));
                         break;
                     case 4:
                         // One Coral, One Bubble
@@ -131,6 +132,15 @@ public class SpawnerRandom : MonoBehaviour
                     case 1:
                         SpawnEnemy(0);
                         break;
+                    case 2:
+                        timeBetweenEnemySpawn = 7.0f;
+                        SpawnEnemy(1);
+                        break;
+                    case 3:
+                        timeBetweenEnemySpawn = 7.0f;
+                        SpawnEnemy(2, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(7.0f, 12.0f)));
+                        break;
+
                 }
 
             }
@@ -144,11 +154,13 @@ public class SpawnerRandom : MonoBehaviour
         //Debug.Log("Spawn");
         GameObject s = Instantiate<GameObject>(spawnerPrefab[index]);
         Vector2 randomVec = generateRandomVector();
+        float distanceBetweenCrabVector = Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position);
         //Debug.Log(Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position));
-        if (Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position) < 4.0)
+        while (distanceBetweenCrabVector < 4.0)     // Prevent from spawning too close to player
         {
-            Debug.Log("Triggered movement");
-            randomVec.y += 3.0f;
+            //Debug.Log("Triggered movement");
+            randomVec.x += 3.0f;
+            distanceBetweenCrabVector = Vector2.Distance(randomVec, Hero.Instance.gameObject.transform.position);
         }
         s.transform.position = randomVec;
         yield return new WaitForSeconds(timeActive);
@@ -193,12 +205,19 @@ public class SpawnerRandom : MonoBehaviour
     public void SpawnEnemy(int index, Vector2 pos)
     {
         GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
+        float distanceBetweenCrabVector = Vector2.Distance(pos, Hero.Instance.gameObject.transform.position);
+        while (distanceBetweenCrabVector < 4.0)     // Prevents from spawning too close to player
+        {
+            //Debug.Log("Triggered movement");
+            pos.x += 3.0f;
+            distanceBetweenCrabVector = Vector2.Distance(pos, Hero.Instance.gameObject.transform.position);
+        }
         enemy.transform.position = pos;
     }
 
     public void SpawnEnemy(int index)
     {
-        Debug.Log("Spawn enemy");
+        //Debug.Log("Spawn enemy");
         GameObject enemy = Instantiate<GameObject>(prefabEnemies[index]);
 
         // Position the Enemy above the screen with a random x position
