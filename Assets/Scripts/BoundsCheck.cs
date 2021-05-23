@@ -66,9 +66,9 @@ public class BoundsCheck : MonoBehaviour
             offUp = true;
         }
 
-        if (pos.y < -camHeight + radius)
+        if (pos.y < -camHeight + (radius * 5))
         {
-            pos.y = -camHeight + radius;
+            pos.y = -camHeight + (radius * 5);
             offDown = true;
         }
 
