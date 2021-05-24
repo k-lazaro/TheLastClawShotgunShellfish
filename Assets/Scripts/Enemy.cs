@@ -56,43 +56,53 @@ public class Enemy : MonoBehaviour
     protected virtual IEnumerator OnCollisionEnter2D(Collision2D collision)
     {
         GameObject otherGameObject = collision.gameObject;
-
-        if (otherGameObject.CompareTag("ProjectileHero"))
+        if (alive)
         {
-            health--;
-            Destroy(otherGameObject); // Destroy the Projectile
-            if (health == 0)
+            if (otherGameObject.CompareTag("ProjectileHero"))
             {
-                alive = false;
-                animator.SetTrigger("Dead");
-                yield return new WaitForSeconds(0.917f);
-                gameObject.GetComponent<SpriteRenderer>().enabled = false;
-                // Enemy drops powerup
-                float rng = Random.Range(0.0f, 1.0f);
-                GameObject powerup = null;
-                // Drops health 20% of time
-                if (rng <= 0.2f)
+                health--;
+                Destroy(otherGameObject); // Destroy the Projectile
+                if (health == 0)
                 {
-                    // Health power up
-                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[3]);
+                    alive = false;
+                    animator.SetTrigger("Dead");
+                    yield return new WaitForSeconds(0.917f);
+                    gameObject.GetComponent<SpriteRenderer>().enabled = false;
+                    // Enemy drops powerup
+                    float rng = Random.Range(0.0f, 1.0f);
+                    GameObject powerup = null;
+                    // Drops health 20% of time
+                    if (rng <= 0.2f)
+                    {
+                        // Health power up
+                        powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[3]);
+                    }
+                    else if (rng >= 0.6f)
+                    {
+                        // Fire rate power up
+                        powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[2]);
+                    }
+                    if (powerup != null)
+                    {
+                        powerup.transform.position = gameObject.transform.position;
+                        // Wait four seconds until disappear
+                        yield return new WaitForSeconds(4.0f);
+                        Destroy(powerup);
+                    }
+                    Destroy(gameObject);      // Destroy this Enemy GameObject
                 }
-                else if (rng >= 0.6f)
-                {
-                    // Fire rate power up
-                    powerup = Instantiate<GameObject>(PowerUpSpawn.Instance.spawnerPrefab[2]);
-                }
-                if (powerup != null)
-                {
-                    powerup.transform.position = gameObject.transform.position;
-                    // Wait four seconds until disappear
-                    yield return new WaitForSeconds(4.0f);
-                    Destroy(powerup);
-                }
-                Destroy(gameObject);      // Destroy this Enemy GameObject
+                else
+                    yield return null;
             }
-            else
-                yield return null;
         }
+        else
+        {
+            if (otherGameObject.CompareTag("ProjectileHero"))
+            {
+                Destroy(otherGameObject); // Destroy the Projectile
+            }
+        }
+
     }
 
     public virtual void Move()
