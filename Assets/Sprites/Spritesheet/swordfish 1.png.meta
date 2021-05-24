@@ -138,9 +138,9 @@ TextureImporter:
         x: 7
         y: 126
         width: 24
-        height: 37
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -159,9 +159,9 @@ TextureImporter:
         x: 49
         y: 126
         width: 24
-        height: 37
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -180,9 +180,9 @@ TextureImporter:
         x: 91
         y: 126
         width: 24
-        height: 37
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -198,12 +198,12 @@ TextureImporter:
       name: swordfish 1_3
       rect:
         serializedVersion: 2
-        x: 9
+        x: 7
         y: 84
-        width: 21
+        width: 24
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -219,12 +219,12 @@ TextureImporter:
       name: swordfish 1_4
       rect:
         serializedVersion: 2
-        x: 51
+        x: 49
         y: 84
-        width: 21
+        width: 24
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -240,12 +240,12 @@ TextureImporter:
       name: swordfish 1_5
       rect:
         serializedVersion: 2
-        x: 95
+        x: 91
         y: 84
-        width: 20
-        height: 39
+        width: 24
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -261,12 +261,12 @@ TextureImporter:
       name: swordfish 1_6
       rect:
         serializedVersion: 2
-        x: 11
+        x: 7
         y: 42
-        width: 20
-        height: 39
+        width: 24
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -282,12 +282,12 @@ TextureImporter:
       name: swordfish 1_7
       rect:
         serializedVersion: 2
-        x: 53
+        x: 49
         y: 42
-        width: 20
-        height: 39
+        width: 24
+        height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -303,12 +303,12 @@ TextureImporter:
       name: swordfish 1_8
       rect:
         serializedVersion: 2
-        x: 93
+        x: 91
         y: 42
-        width: 21
+        width: 24
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -324,12 +324,12 @@ TextureImporter:
       name: swordfish 1_9
       rect:
         serializedVersion: 2
-        x: 9
+        x: 7
         y: 0
-        width: 21
+        width: 24
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -345,12 +345,12 @@ TextureImporter:
       name: swordfish 1_10
       rect:
         serializedVersion: 2
-        x: 51
+        x: 49
         y: 0
-        width: 21
+        width: 24
         height: 42
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
