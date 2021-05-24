@@ -57,7 +57,7 @@ public class Enemy : MonoBehaviour
     {
         GameObject otherGameObject = collision.gameObject;
 
-        if (otherGameObject.tag == "ProjectileHero")
+        if (otherGameObject.CompareTag("ProjectileHero"))
         {
             health--;
             Destroy(otherGameObject); // Destroy the Projectile

@@ -466,7 +466,7 @@ public class Hero : MonoBehaviour
         GameObject gameObject = collision.gameObject;
 
         // Coral
-        if (gameObject.tag == "Coral")
+        if (gameObject.CompareTag("Coral"))
         {
             //Lives--;
             //animator.SetTrigger("Hurt");
@@ -484,7 +484,7 @@ public class Hero : MonoBehaviour
             //Destroy(gameObject);          // … and Destroy the enemy
         }
         // Bubble or Urchin
-        else if (gameObject.tag == "EnemyProj" || (gameObject.tag == "Enemy" && gameObject.GetComponent<Enemy>().alive))
+        else if (gameObject.CompareTag("EnemyProj") || ((gameObject.CompareTag("Enemy") || gameObject.CompareTag("Trash")) && gameObject.GetComponent<Enemy>().alive))
         {
             if (shotGun)
             {

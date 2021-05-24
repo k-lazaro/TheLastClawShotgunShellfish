@@ -49,7 +49,7 @@ public class Coral : EnemyProjectile
 
         //if (collision.collider.GetType() == typeof(BoxCollider2D))
         //{
-        if (otherGameObject.tag == "ProjectileHero")
+        if (otherGameObject.CompareTag("ProjectileHero"))
         {
             if (health == 2)
             {
