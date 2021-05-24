@@ -35,7 +35,7 @@ AnimatorStateTransition:
   m_Name: 
   m_Conditions:
   - m_ConditionMode: 1
-    m_ConditionEvent: Destroyed
+    m_ConditionEvent: Dead
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7643426915107580860}
@@ -60,7 +60,7 @@ AnimatorController:
   m_Name: Trash2
   serializedVersion: 5
   m_AnimatorParameters:
-  - m_Name: Destroyed
+  - m_Name: Dead
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -120,7 +120,7 @@ AnimatorStateMachine:
     m_Position: {x: 230, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -7643426915107580860}
-    m_Position: {x: 450, y: 110, z: 0}
+    m_Position: {x: 490, y: 110, z: 0}
   m_ChildStateMachines: []
   m_AnyStateTransitions: []
   m_EntryTransitions: []

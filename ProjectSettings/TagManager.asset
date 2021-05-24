@@ -9,6 +9,7 @@ TagManager:
   - Hero
   - EnemyProj
   - Coral
+  - Trash
   layers:
   - Default
   - TransparentFX
