@@ -2,12 +2,12 @@
 
 public class FirePowerUp : HealthPowerUp
 {
-    public float increase = 0.2f;
+    public float increase;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        increase = 0.15f;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -19,7 +19,7 @@ public class FirePowerUp : HealthPowerUp
 
             if (heroScript)
             {
-                heroScript.fireRate += increase;
+                heroScript.fireRate = Mathf.Max(heroScript.fireRate - increase, 0.1f);
                 Destroy(gameObject);
             }
         }

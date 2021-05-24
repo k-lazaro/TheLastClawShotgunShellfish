@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   livesManager: {fileID: 0}
   lives: []
-  increase: -0.1
+  increase: 0
 --- !u!95 &2454758257427136619
 Animator:
   serializedVersion: 3
