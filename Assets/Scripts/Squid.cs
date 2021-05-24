@@ -8,6 +8,7 @@ public class Squid : Enemy
     {
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         health = 2;
+        alive = true;
     }
 
     // Start is called before the first frame update
