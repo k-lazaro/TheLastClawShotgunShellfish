@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Set in Inspector: Enemy")]
 
-    public float speed = 10f;      // The speed in m/s
+    public float speed = 15f;      // The speed in m/s
     //public float fireRate = 0.3f;  // Seconds/shot (Unused)
     public float health;
     public bool alive;

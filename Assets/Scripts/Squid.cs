@@ -6,6 +6,7 @@ public class Squid : Enemy
 {
     void Awake()
     {
+        speed = 12;
         gameObject.GetComponent<SpriteRenderer>().enabled = true;
         health = 2;
         alive = true;
