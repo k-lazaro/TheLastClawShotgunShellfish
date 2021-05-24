@@ -18,7 +18,7 @@ public class SpawnerRandom : MonoBehaviour
     public FireBubbles fb;
     public float timeBetweenSpawn;
 
-    public float timeBetweenEnemySpawn = 2.0f; // # Enemies/second aka spawn rate
+    public float timeBetweenEnemySpawn = 1.5f; // # Enemies/second aka spawn rate
     public float enemyDefaultPadding = 1.5f; // Padding for position
     //public int index;
     private float elapsedTime;                    // Keeps track of elapsed time for spawners
@@ -74,23 +74,25 @@ public class SpawnerRandom : MonoBehaviour
                         // One bubble, one urchin
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(.6f, 12);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 1.0f));
+                        StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
 
                         fb = spawnerPrefab[1].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(.9f, 10);
                         StartCoroutine(spawnRandomPositionSpawner(1, 1.45f));
+
+                        SpawnEnemy(Random.Range(3, 4));
                         break;
                     case 3:
                         // One Coral, One Bubble
                         fb.setRatioBool(false);
-                        timeBetweenSpawn = 8.0f;
+                        timeBetweenSpawn = 4.0f;
                         fb = spawnerPrefab[2].GetComponent<FireBubbles>();
                         fb.setFireRateAmount(2.0f, 0);
                         StartCoroutine(spawnStaticPositionSpawner(2, Vector2.zero, 4.0f));
 
                         fb = spawnerPrefab[0].GetComponent<FireBubbles>();
-                        fb.setFireRateAmount(.8f, 16);
-                        StartCoroutine(spawnRandomPositionSpawner(0, 8.0f));
+                        fb.setFireRateAmount(.5f, 20);
+                        StartCoroutine(spawnRandomPositionSpawner(0, 4.0f));
                         break;
                     case 4:
                         //fb.setRatioBool(false);
@@ -157,6 +159,7 @@ public class SpawnerRandom : MonoBehaviour
                             StartCoroutine(spawnRandomPositionSpawner(0, 2.0f));
                         }
                         //fb.setAngleStep(10.134038f);
+                        SpawnEnemy(Random.Range(3, 4));
                         break;
                     default: break;
                 }
@@ -183,15 +186,18 @@ public class SpawnerRandom : MonoBehaviour
                     case 3:
                         // Clam
                         timeBetweenEnemySpawn = 7.0f;
+                        SpawnEnemy(Random.Range(3, 4));
+                        SpawnEnemy(Random.Range(3, 4));
                         SpawnEnemy(2, new Vector2(Random.Range(-6.0f, 6.0f), Random.Range(7.0f, 12.0f)));
                         break;
                     case 4:
                         timeBetweenEnemySpawn = 7.0f;
                         SpawnRandomEnemy();
                         SpawnRandomEnemy();
+                        SpawnEnemy(Random.Range(3, 4));
                         break;
                     case 5:
-                        timeBetweenEnemySpawn = 6.0f;
+                        timeBetweenEnemySpawn = 5.5f;
                         SpawnRandomEnemy();
                         SpawnRandomEnemy();
                         SpawnRandomEnemy();
@@ -252,11 +258,31 @@ public class SpawnerRandom : MonoBehaviour
         // Set the initial position for the spawned Enemy
         Vector3 pos = Vector3.zero;
 
-        float xMin = -bndCheck.camWidth + enemyPadding;
-        float xMax = bndCheck.camWidth - enemyPadding;
-
-        pos.x = Random.Range(xMin, xMax);
-        pos.y = bndCheck.camHeight + enemyPadding;
+        if (enemy.CompareTag("Trash"))
+        {
+            float yMin = -bndCheck.camHeight + (enemyPadding * 5);
+            float yMax = bndCheck.camHeight/4 - enemyPadding;
+            pos.y = Random.Range(yMin, yMax);
+            float leftOrRightSide = Random.Range(0.0f, 1.0f);
+            if (leftOrRightSide <= 0.5f)
+            {
+                // left
+                pos.x = -bndCheck.camWidth - enemyPadding;
+                enemy.GetComponent<Trash>().left = true;
+            }
+            else
+            {
+                pos.x = bndCheck.camWidth + enemyPadding;
+                enemy.GetComponent<Trash>().left = false;
+            }
+        }
+        else
+        {
+            float xMin = -bndCheck.camWidth + enemyPadding;
+            float xMax = bndCheck.camWidth - enemyPadding;
+            pos.x = Random.Range(xMin, xMax);
+            pos.y = bndCheck.camHeight + enemyPadding;
+        }
 
         enemy.transform.position = pos;
     }
@@ -290,11 +316,31 @@ public class SpawnerRandom : MonoBehaviour
         // Set the initial position for the spawned Enemy
         Vector3 pos = Vector3.zero;
 
-        float xMin = -bndCheck.camWidth + enemyPadding;
-        float xMax = bndCheck.camWidth - enemyPadding;
-
-        pos.x = Random.Range(xMin, xMax);
-        pos.y = bndCheck.camHeight + enemyPadding;
+        if (enemy.CompareTag("Trash"))
+        {
+            float yMin = -bndCheck.camHeight + (enemyPadding * 5);
+            float yMax = bndCheck.camHeight/4 - enemyPadding;
+            pos.y = Random.Range(yMin, yMax);
+            float leftOrRightSide = Random.Range(0.0f, 1.0f);
+            if (leftOrRightSide <= 0.5f)
+            {
+                // left
+                pos.x = -bndCheck.camWidth - enemyPadding;
+                enemy.GetComponent<Trash>().left = true;
+            }
+            else
+            {
+                pos.x = bndCheck.camWidth + enemyPadding;
+                enemy.GetComponent<Trash>().left = false;
+            }      
+        }
+        else
+        {
+            float xMin = -bndCheck.camWidth + enemyPadding;
+            float xMax = bndCheck.camWidth - enemyPadding;
+            pos.x = Random.Range(xMin, xMax);
+            pos.y = bndCheck.camHeight + enemyPadding;
+        }
 
         enemy.transform.position = pos;
     }
