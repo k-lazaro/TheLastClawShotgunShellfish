@@ -46,6 +46,12 @@ public class Main : MonoBehaviour
             pressSpace.text = "";
             started = true;
         }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            pressSpace.text = "";
+            started = true;
+        }
     }
 
     public void DelayedRestart(float delay)
