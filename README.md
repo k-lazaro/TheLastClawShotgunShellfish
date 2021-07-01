@@ -25,7 +25,7 @@
   - Incoming projectiles
   - Incoming enemies
   - Title and UI
-- [**Scripts**](https://github.com/k-lazaro/TheLastClawShotgunShellfish/tree/master/Assets/Sprites/Spritesheet) contains scripts of:
+- [**Scripts**](https://github.com/k-lazaro/TheLastClawShotgunShellfish/tree/master/Assets/Scripts) contains scripts of:
   - The crab and how it moves
   - Boundaries
   - Power-ups and what they provide
